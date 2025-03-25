@@ -6,6 +6,8 @@ require_once __DIR__ . "/Controllers/authController.php";
 define("URL", str_replace("index.php", "",(isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER["PHP_SELF"]
 ));
 
+$authController = new AuthController();
+
 try {
 
   if(empty($_GET['page'])){
@@ -21,7 +23,9 @@ try {
       break;
 
     case "logout":
-      $authController->logout();
+      session_destroy();
+      header('Location: ' . URL . 'login');
+      exit;
       break;
 
     case "dashboard":
