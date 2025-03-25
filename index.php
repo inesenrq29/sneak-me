@@ -42,11 +42,5 @@ try {
   echo "500 : Erreur interne du serveur.";
 }
 
-
-
-
-
-
-
 ?>
 
