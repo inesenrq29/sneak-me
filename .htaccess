@@ -1,0 +1,11 @@
+RewriteEngine On #Active le moteur de réécriture (mod_rewrite) sur le serveur Apache
+
+#Vérifie si la requête ne correspond pas à un fichier physique existant
+#Si le fichier demandé existe sur le serveur, la réécriture ne s'applique pas
+RewriteCond %{REQUEST_FILENAME} !-f
+#Vérifie si la requête ne correspond pas à un dossier existant
+#Si c'est un dossier réel, la réécriture ne s'applique pas non plus
+RewriteCond %{REQUEST_FILENAME} !-d
+
+#Si la requête ne correspond ni à un fichier ni à un dossier, elle est redirigée vers index.php, en passant le chemin de l'URL en paramètre page
+RewriteRule ^(.*)$ index.php?page=$1
