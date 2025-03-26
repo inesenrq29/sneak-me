@@ -12,11 +12,23 @@ class AuthController {
 
         // Si le formulaire a été soumis
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            // pot de miel
+            if (!empty($_POST['honeypot'])){
+                //si le champ est rempli, c'est probablement un bot
+                header('HTTP/1.1 403 Forbidden');
+                exit('Accès interdit');
+               }                
+            // Récupérer les données du formulaire
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+
             // On vérifie le captcha
             if ($_POST['captcha'] == $_SESSION['captcha']) {
                 // Récupération des données du formulaire
                 $username = $_POST['username'];
                 $password = $_POST['password'];
+
 
                 // Vérification des informations de connexion
                 if ($username === 'admin' && $password === '$2y$10$UOC70iO80WD/i3J9Q2a0me51OTxcRPufkLvaOQ0YMcaOhUHmPf1WC') {
