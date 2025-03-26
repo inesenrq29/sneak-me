@@ -6,33 +6,37 @@ class AuthController {
     public function login() {
         // Vérifie si l'utilisateur est déjà connecté
         if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
-            // Redirige vers le tableau de bord si déjà connecté
             header('Location: ' . URL . 'dashboard');
             exit();
         }
 
         // Si le formulaire a été soumis
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Récupérer les données du formulaire
-            $username = $_POST['username'];
-            $password = $_POST['password'];
+            // On vérifie le captcha
+            if ($_POST['captcha'] == $_SESSION['captcha']) {
+                // Récupération des données du formulaire
+                $username = $_POST['username'];
+                $password = $_POST['password'];
 
-            // Vérification des informations de connexion
-            if ($username === 'admin' && $password === '$2y$10$UOC70iO80WD/i3J9Q2a0me51OTxcRPufkLvaOQ0YMcaOhUHmPf1WC') {  
-                // Authentification réussie
-                $_SESSION['admin'] = true; // Définir une session pour l'utilisateur
-                header('Location: ' . URL . 'dashboard');  // Redirige vers le tableau de bord
-                exit();
+                // Vérification des informations de connexion
+                if ($username === 'admin' && $password === '$2y$10$UOC70iO80WD/i3J9Q2a0me51OTxcRPufkLvaOQ0YMcaOhUHmPf1WC') {
+                    $_SESSION['admin'] = true; // L'authentification est réussie
+                    header('Location: ' . URL . 'dashboard');
+                    exit();
+                } else {
+                    $_SESSION['error'] = 'Nom d\'utilisateur ou mot de passe incorrect';
+                    header('Location: ' . URL . 'login');
+                    exit();
+                }
             } else {
-                // Authentification échouée
-                $_SESSION['error'] = 'Nom d\'utilisateur ou mot de passe incorrect';
-                header('Location: ' . URL . 'login');  // Redirige vers la page de login avec un message d'erreur
+                $_SESSION['error'] = 'Captcha incorrect';
+                header('Location: ' . URL . 'login');
                 exit();
             }
         }
 
-        // Afficher la vue de connexion si ce n'est pas une soumission de formulaire
-        include __DIR__ . '/../Views/login.php'; 
+        // Afficher la vue de connexion
+        include __DIR__ . '/../Views/login.php';
     }
 
     // Méthode pour gérer la déconnexion
