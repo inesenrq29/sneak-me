@@ -2,11 +2,13 @@
 session_start();
 
 require_once __DIR__ . "/Controllers/authController.php";
+require_once __DIR__ . "/Controllers/chatbotController.php"; 
 
 define("URL", str_replace("index.php", "",(isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER["PHP_SELF"]
 ));
 
 $authController = new AuthController();
+$chatbotController = new ChatbotController();
 
 try {
 
@@ -36,6 +38,15 @@ try {
           exit();
       }
       break;
+
+      case "chatbot":
+        if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
+            $chatbotController->read(); 
+        } else {
+            header("Location: " . URL . "login");
+            exit();
+        }
+        break; 
 
       default:
       echo "404 Page non trouvée";
