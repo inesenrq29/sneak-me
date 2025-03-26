@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once __DIR__ . "/Controllers/authController.php";
 require_once __DIR__ . "/Controllers/chatbotController.php"; 
 
@@ -18,7 +22,7 @@ try {
     $url = explode("/", filter_var($_GET['page'], FILTER_SANITIZE_URL));
     $page = $url[0];
   }
-  
+
   switch($page){
     case "login" : 
       $authController->login();

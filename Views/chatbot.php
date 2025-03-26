@@ -1,8 +1,8 @@
 <?php 
-require_once(__DIR__ . '/../Includes/header.php');
+require_once __DIR__ . '/../Includes/header.php';
+
  ?>
 
-// chatbot.php
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -21,8 +21,8 @@ require_once(__DIR__ . '/../Includes/header.php');
         <tbody>
             <?php foreach ($keywordsAndResponses as $item): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($item['keyword']); ?></td>
-                    <td><?php echo htmlspecialchars($item['response']); ?></td>
+                    <td><?php echo htmlspecialchars($item['keyword_name']); ?></td>
+                    <td><?php echo htmlspecialchars($item['response_name']); ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
