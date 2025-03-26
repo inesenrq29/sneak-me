@@ -37,6 +37,15 @@ try {
       }
       break;
 
+      case "chatbot":
+            if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
+                $chatbotController->chatbot();
+            } else {
+                header("Location: " . URL . "login");
+                exit();
+            }
+            break;
+
       default:
       echo "404 Page non trouvée";
       break;
