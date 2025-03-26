@@ -2,9 +2,10 @@
 // permet d'avoir accès à la BDD et représente la configuration
 
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'sneakme');
+define('DB_NAME', 'sneak-me');
 define('DB_USER', 'root');
 define('DB_PASSWORD', '');
+
 
 function getConnection()
 {
