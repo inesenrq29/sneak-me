@@ -2,7 +2,6 @@
 
 class AuthController {
 
-    // Méthode pour afficher la page de connexion et gérer la soumission du formulaire
     public function login() {
         // Vérifie si l'utilisateur est déjà connecté
         if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
