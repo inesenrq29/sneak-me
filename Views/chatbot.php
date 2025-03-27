@@ -11,7 +11,7 @@ require_once __DIR__ . '/../Includes/header.php';
 </head>
 <body>
     <h1>Chatbot - Mots-clés et Réponses</h1>
-    <a href="<?= URL ?>chatbot-add">Ajouter un mot-clé et une réponse</a>
+    <a href="<?= URL ?>chatbot-add"><button>Ajouter un mot-clé et une réponse</button></a>
     <table border="1">
         <thead>
             <tr>

@@ -17,8 +17,8 @@ $chatbotModel = new ChatbotModel();
       <label for="response_name">Ajouter une réponse associée: </label>
       <input type="text" name="response_name" id="response_name" required/>
     </div><button type="submit">Ajouter</button>
-</form>
 
+</form>
 <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['keyword_name']) && !empty($_POST['response_name'])) {
         try {
@@ -71,5 +71,9 @@ $chatbotModel = new ChatbotModel();
         });
     });
 </script>
+
+<a href="<?= URL ?>chatbot"><button>Retour au chat</button></a>
+
+
 
 

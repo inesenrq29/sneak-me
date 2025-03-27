@@ -40,43 +40,58 @@ class ChatbotModel {
 
     public function addResponse($response_name) {
         $dbh = getConnection();
+
+        // Vérifier si la réponse existe déjà
+        $checkQuery = "SELECT id FROM response WHERE response_name = :response_name";
+        $checkStmt = $dbh->prepare($checkQuery);
+        $checkStmt->bindValue(":response_name", $response_name, PDO::PARAM_STR);
+        $checkStmt->execute();
+
+        $existingId = $checkStmt->fetchColumn();
+        if ($existingId) {
+            return $existingId; // Retourne l'ID existant pour éviter les doublons
+        }
+
+        // Insérer uniquement si elle n'existe pas
         $req = "INSERT INTO response (response_name) VALUES(:response_name)";
         $stmt = $dbh->prepare($req);
         $stmt->bindValue(":response_name", $response_name, PDO::PARAM_STR);
-        return $stmt->execute();
+        $stmt->execute();
+
+        return $dbh->lastInsertId(); // Retourner l'ID de la réponse insérée
     }
+
 
     public function associate($keyword_name, $response_name) {
         $dbh = getConnection();
 
-        // Récupérer les IDs des mots-clés et réponses
-        $reqKeyword = "SELECT id FROM keyword WHERE keyword_name = :keyword_name";
-        $reqResponse = "SELECT id FROM response WHERE response_name = :response_name";
-
-        $stmtKeyword = $dbh->prepare($reqKeyword);
-        $stmtResponse = $dbh->prepare($reqResponse);
-
+        // Récupérer l'ID du mot-clé
+        $stmtKeyword = $dbh->prepare("SELECT id FROM keyword WHERE keyword_name = :keyword_name");
         $stmtKeyword->bindValue(":keyword_name", $keyword_name, PDO::PARAM_STR);
-        $stmtResponse->bindValue(":response_name", $response_name, PDO::PARAM_STR);
-
         $stmtKeyword->execute();
-        $stmtResponse->execute();
-
         $keywordId = $stmtKeyword->fetchColumn();
+
+        // Récupérer l'ID de la réponse
+        $stmtResponse = $dbh->prepare("SELECT id FROM response WHERE response_name = :response_name");
+        $stmtResponse->bindValue(":response_name", $response_name, PDO::PARAM_STR);
+        $stmtResponse->execute();
         $responseId = $stmtResponse->fetchColumn();
 
-        // Vérifier si les IDs existent
-        if (!$keywordId || !$responseId) { // Ici, il y avait une erreur (vérification de !$responseId manquante)
+        // Vérification que les IDs existent
+        if (!$keywordId || !$responseId) {
             return false;
         }
 
-        // Insérer en évitant les doublons
+
+        // Associer les deux sans doublons
         $req = "INSERT IGNORE INTO keyword_response (keyword_id, response_id) VALUES(:keyword_id, :response_id)";
         $stmt = $dbh->prepare($req);
         $stmt->bindValue(":keyword_id", $keywordId, PDO::PARAM_INT);
         $stmt->bindValue(":response_id", $responseId, PDO::PARAM_INT);
+
         return $stmt->execute();
     }
+
 
 }
 ?>
