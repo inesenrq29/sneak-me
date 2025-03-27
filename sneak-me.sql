@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 26 mars 2025 à 10:27
+-- Généré le : mer. 26 mars 2025 à 13:52
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `sneakme`
+-- Base de données : `sneak-me`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `categorie`
+-- Structure de la table `category`
 --
 
 DROP TABLE IF EXISTS `category`;
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Déchargement des données de la table `categorie`
+-- Déchargement des données de la table `category`
 --
 
 INSERT INTO `category` (`id`, `name`) VALUES
@@ -54,16 +54,16 @@ INSERT INTO `category` (`id`, `name`) VALUES
 DROP TABLE IF EXISTS `keyword`;
 CREATE TABLE IF NOT EXISTS `keyword` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `keyword_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
+  UNIQUE KEY `name` (`keyword_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `keyword`
 --
 
-INSERT INTO `keyword` (`id`, `name`) VALUES
+INSERT INTO `keyword` (`id`, `keyword_name`) VALUES
 (10, 'catalogue'),
 (11, 'commander'),
 (16, 'connection'),
@@ -143,7 +143,7 @@ INSERT INTO `product` (`id`, `title`, `description`, `price`, `image`, `category
 DROP TABLE IF EXISTS `response`;
 CREATE TABLE IF NOT EXISTS `response` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` text NOT NULL,
+  `response_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `response` (
 -- Déchargement des données de la table `response`
 --
 
-INSERT INTO `response` (`id`, `name`) VALUES
+INSERT INTO `response` (`id`, `response_name`) VALUES
 (1, 'Merci de vous êtes inscrit, bienvenue !'),
 (2, 'Bon retour parmi nous !'),
 (3, 'Vous avez été déconnecté avec succès.'),
@@ -178,7 +178,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Déchargement des données de la table `utilisateur`
+-- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES

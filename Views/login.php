@@ -12,6 +12,7 @@ $captcha = $_SESSION['captcha'];
     <label for="username">Entrer votre identifiant: </label>
     <input type="text" name="username" id="username" required/>
 </div>
+
 <div>
     <label for="lastname">Entrer votre nom: </label>
     <input type="text" name="honeypot" />

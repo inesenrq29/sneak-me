@@ -5,34 +5,34 @@ require_once(__DIR__ . '/../Includes/header.php');
 require_once(__DIR__ . '/../Includes/db.php');
 require_once(__DIR__ . '/../Models/chatbotModel.php');
 
+$chatbotModel = new ChatbotModel();
 ?>
 
-<form method="POST" action="">
+<form method="post" action="">
     <div>
-      <label for="keyword">Ajouter un/des mot(s)-clé(s): </label>
-      <input type="text" name="keyword" id="keyword" />
+      <label for="keyword_name">Ajouter un/des mot(s)-clé(s): </label>
+      <input type="text" name="keyword_name" id="keyword_name" required/>
     </div>
     <div>
-      <label for="response">Ajouter une réponse associée: </label>
-      <input type="text" name="response" id="response" />
+      <label for="response_name">Ajouter une réponse associée: </label>
+      <input type="text" name="response_name" id="response_name" required/>
     </div><button type="submit">Ajouter</button>
-
 </form>
 
 <?php
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['keyword']) && !empty($_POST['response'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['keyword_name']) && !empty($_POST['response_name'])) {
         try {
-            $keyword = trim($_POST['keyword']);
-            $response = trim($_POST['response']);
+            $keyword_name = trim($_POST['keyword_name']);
+            $response_name = trim($_POST['response_name']);
 
             // fonction pour ajouter un mot-clé
-            $keywordSuccess = addKeyword($keyword);
+           $keywordSuccess = $chatbotModel->addKeyword($keyword_name);
 
             // fonction pour ajouter une réponse
-            $responseSuccess = addResponse($response);
+            $responseSuccess = $chatbotModel->addResponse($response_name);
 
             if ($keywordSuccess && $responseSuccess) {
-                $associationSuccess = associate($keyword, $response);
+                $associationSuccess = $chatbotModel->associate($keyword_name, $response_name);
             } else {
                 $associationSuccess = false;
             }
@@ -44,20 +44,32 @@ require_once(__DIR__ . '/../Models/chatbotModel.php');
 
 <?php if (isset($keywordSuccess, $responseSuccess, $associationSuccess)): ?>
     <div class="container-md">
-        <div role="alert">
+        <div class="alert" role="alert">
             <?php if ($keywordSuccess && $responseSuccess && $associationSuccess): ?>
                 <p>Le mot-clé et la réponse ont bien été ajoutés et associés.</p>
             <?php else: ?>
                 <p>Erreur lors de l'ajout du mot-clé, de la réponse ou de l'association.</p>
             <?php endif; ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" aria-label="Fermer">Fermer</button>
         </div>
     </div>
 <?php elseif (isset($errorMessage)): ?>
-    <div>
-        <div role="alert">
+    <div class="container-md">
+        <div class="alert" role="alert">
             <p>Erreur: <?= htmlspecialchars($errorMessage) ?></p>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" aria-label="Fermer">Fermer</button>
         </div>
     </div>
 <?php endif; ?>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".btn-close").forEach(button => {
+            button.addEventListener("click", function () {
+                this.parentElement.style.display = "none";
+            });
+        });
+    });
+</script>
+
+
