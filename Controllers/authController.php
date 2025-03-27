@@ -61,17 +61,6 @@ class AuthController {
         exit();
     }
 
-    // Méthode pour afficher la page de tableau de bord
-    public function dashboard() {
-        // Si l'utilisateur n'est pas connecté, rediriger vers la page de login
-        if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
-            header('Location: ' . URL . 'login');
-            exit();
-        }
-
-        // Afficher la vue du tableau de bord
-        include __DIR__ . '/../Views/dashboard.php'; 
-    }
 }
 
 
