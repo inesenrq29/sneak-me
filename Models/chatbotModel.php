@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../Includes/db.php'; // Inclusion du fichier de connexion
+require_once __DIR__ . '/../Includes/db.php'; 
 
 class ChatbotModel {
 
@@ -18,6 +18,14 @@ class ChatbotModel {
         return $stmt->fetchAll(); // Retourne les résultats sous forme de tableau associatif
     }
 
+    public function deleteKeyword($keyword_name) {
+        $pdo = getConnection();      
+        $query = "DELETE FROM keyword WHERE keyword_name = :keyword_name";
+        $stmt = $pdo->prepare($query);  
+        $stmt->bindParam(':keyword_name', $keyword_name, PDO::PARAM_STR); 
+        return $stmt->execute();  
+    }
+                    
    public function addKeyword($keyword_name) {
        $dbh = getConnection();
 

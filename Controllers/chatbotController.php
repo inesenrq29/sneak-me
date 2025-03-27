@@ -14,6 +14,17 @@ class ChatbotController {
         include __DIR__ . '/../Views/chatbot.php';
     }
 
+    public function deleteKeyword() {
+        // Vérifier qu'un mot-clé est passé en POST
+        if (isset($_POST['keyword_name'])) {
+            $keyword_name = $_POST['keyword_name'];    
+            $chatbotModel = new ChatbotModel();    
+            $chatbotModel->deleteKeyword($keyword_name);    
+            header("Location: " . URL . "chatbot");
+            exit();
+        }
+    }
+    
     public function addChatKeyword() {
         $message = ""; // Stockage du message
 

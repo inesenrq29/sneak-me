@@ -57,7 +57,12 @@ try {
                 }
                 break;
 
-      default:
+                case "deleteKeyword":
+                  if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['keyword_name'])) {
+                      $chatbotController->deleteKeyword();
+                  }
+                  break;
+                    default:
       echo "404 Page non trouvée";
       break;
   }
