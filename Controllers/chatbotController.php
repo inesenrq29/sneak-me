@@ -29,7 +29,9 @@ class ChatbotController {
             if ($keywordAdded && $responseAdded) {
                 $associationResult = $chatbotModel->associate($keyword_name, $response_name);
 
-                if ($associationResult) {
+                if ($associationResult === "mot-clé déjà associé") {
+                    $message = "<p class='error'>Le mot-clé est déjà associé à cette réponse.</p>";
+                } elseif ($associationResult) {
                     $message = "<p class='success'>Le mot-clé et la réponse ont bien été ajoutés et associés.</p>";
                 } else {
                     $message = "<p class='error'>Erreur lors de l'association du mot-clé et de la réponse.</p>";
@@ -43,6 +45,7 @@ class ChatbotController {
 
         include __DIR__ . '/../Views/chatbotAdd.php';
     }
+
 
 
 }

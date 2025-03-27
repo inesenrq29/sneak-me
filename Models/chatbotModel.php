@@ -65,32 +65,49 @@ class ChatbotModel {
     public function associate($keyword_name, $response_name) {
         $dbh = getConnection();
 
-        // Récupérer l'ID du mot-clé
-        $stmtKeyword = $dbh->prepare("SELECT id FROM keyword WHERE keyword_name = :keyword_name");
-        $stmtKeyword->bindValue(":keyword_name", $keyword_name, PDO::PARAM_STR);
-        $stmtKeyword->execute();
-        $keywordId = $stmtKeyword->fetchColumn();
+        try {
+            // Récupérer l'ID du mot-clé
+            $stmtKeyword = $dbh->prepare("SELECT id FROM keyword WHERE keyword_name = :keyword_name");
+            $stmtKeyword->bindValue(":keyword_name", $keyword_name, PDO::PARAM_STR);
+            $stmtKeyword->execute();
+            $keywordId = $stmtKeyword->fetchColumn();
 
-        // Récupérer l'ID de la réponse
-        $stmtResponse = $dbh->prepare("SELECT id FROM response WHERE response_name = :response_name");
-        $stmtResponse->bindValue(":response_name", $response_name, PDO::PARAM_STR);
-        $stmtResponse->execute();
-        $responseId = $stmtResponse->fetchColumn();
+            // Récupérer l'ID de la réponse
+            $stmtResponse = $dbh->prepare("SELECT id FROM response WHERE response_name = :response_name");
+            $stmtResponse->bindValue(":response_name", $response_name, PDO::PARAM_STR);
+            $stmtResponse->execute();
+            $responseId = $stmtResponse->fetchColumn();
 
-        // Vérification que les IDs existent
-        if (!$keywordId || !$responseId) {
-            return false;
+            // Vérification que les IDs existent
+            if (!$keywordId || !$responseId) {
+                throw new Exception("Le mot-clé ou la réponse n'a pas été trouvé.");
+            }
+
+            // Vérifier si l'association existe déjà
+            $checkAssociationStmt = $dbh->prepare("SELECT 1 FROM keyword_response WHERE keyword_id = :keyword_id AND response_id = :response_id");
+            $checkAssociationStmt->bindValue(":keyword_id", $keywordId, PDO::PARAM_INT);
+            $checkAssociationStmt->bindValue(":response_id", $responseId, PDO::PARAM_INT);
+            $checkAssociationStmt->execute();
+            if ($checkAssociationStmt->fetchColumn()) {
+                throw new Exception("Mot-clé déjà associé.");
+            }
+
+            // Associer sans doublon
+            $stmt = $dbh->prepare("INSERT INTO keyword_response (keyword_id, response_id) VALUES(:keyword_id, :response_id)");
+            $stmt->bindValue(":keyword_id", $keywordId, PDO::PARAM_INT);
+            $stmt->bindValue(":response_id", $responseId, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return true; // Si tout se passe bien
+        } catch (Exception $e) {
+            // Retourner l'erreur de l'exception
+            return $e->getMessage();
         }
-
-
-        // Associer les deux sans doublons
-        $req = "INSERT IGNORE INTO keyword_response (keyword_id, response_id) VALUES(:keyword_id, :response_id)";
-        $stmt = $dbh->prepare($req);
-        $stmt->bindValue(":keyword_id", $keywordId, PDO::PARAM_INT);
-        $stmt->bindValue(":response_id", $responseId, PDO::PARAM_INT);
-
-        return $stmt->execute();
     }
+
+
+
+
 
 
 }
