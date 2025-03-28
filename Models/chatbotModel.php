@@ -1,31 +1,35 @@
 <?php
-require_once __DIR__ . '/../Includes/db.php'; 
+require_once __DIR__ . '/../Includes/db.php';
 
 class ChatbotModel {
 
     public function getAllKeywordsAndResponses() {
-        
-        $pdo = getConnection(); 
+        $pdo = getConnection();
 
-        // Requête SQL pour récupérer les mots-clés et leurs réponses
+        // Requête SQL pour récupérer les mots-clés, leurs réponses ainsi que leurs IDs respectifs
         $stmt = $pdo->query('
-            SELECT keyword_name, response_name
-            FROM keyword_response
-            INNER JOIN keyword ON keyword_response.keyword_id = keyword.id
-            INNER JOIN response ON keyword_response.response_id = response.id
+            SELECT
+                k.id AS keyword_id,
+                k.keyword_name,
+                r.id AS response_id,
+                r.response_name
+            FROM keyword_response kr
+            INNER JOIN keyword k ON kr.keyword_id = k.id
+            INNER JOIN response r ON kr.response_id = r.id
         ');
 
-        return $stmt->fetchAll(); // Retourne les résultats sous forme de tableau associatif
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retourne les résultats sous forme de tableau associatif
     }
 
+
     public function deleteKeyword($keyword_name) {
-        $pdo = getConnection();      
+        $pdo = getConnection();
         $query = "DELETE FROM keyword WHERE keyword_name = :keyword_name";
-        $stmt = $pdo->prepare($query);  
-        $stmt->bindParam(':keyword_name', $keyword_name, PDO::PARAM_STR); 
-        return $stmt->execute();  
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':keyword_name', $keyword_name, PDO::PARAM_STR);
+        return $stmt->execute();
     }
-                    
+
    public function addKeyword($keyword_name) {
        $dbh = getConnection();
 
@@ -68,6 +72,28 @@ class ChatbotModel {
 
         return $dbh->lastInsertId(); // Retourner l'ID de la réponse insérée
     }
+
+    public function updateKeyword($keyword_name,$keyword_id) {
+           $dbh = getConnection();
+
+           // Vérifier si le mot-clé existe déjà
+           $checkQuery = "UPDATE keyword SET keyword_name=:keyword_name WHERE id=:keyword_id";
+           $checkStmt = $dbh->prepare($checkQuery);
+           $checkStmt->bindValue(":keyword_name", $keyword_name, PDO::PARAM_STR);
+           $checkStmt->bindValue(":keyword_id", $keyword_id, PDO::PARAM_INT);
+           return $checkStmt->execute();
+       }
+
+       public function updateResponse($response_name,$response_id) {
+                  $dbh = getConnection();
+
+                  // Vérifier si le mot-clé existe déjà
+                  $checkQuery = "UPDATE response SET response_name=:response_name WHERE id=:response_id";
+                  $checkStmt = $dbh->prepare($checkQuery);
+                  $checkStmt->bindValue(":response_name", $response_name, PDO::PARAM_STR);
+                  $checkStmt->bindValue(":response_id", $response_id, PDO::PARAM_INT);
+                  return $checkStmt->execute();
+              }
 
 
     public function associate($keyword_name, $response_name) {
@@ -112,12 +138,6 @@ class ChatbotModel {
             return $e->getMessage();
         }
     }
-
-
-
-
-
-
 }
 ?>
 

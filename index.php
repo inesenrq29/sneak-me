@@ -60,6 +60,15 @@ try {
                 }
                 break;
 
+                case "chatbot-update":
+                    if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
+                        $chatbotController->updateKeyword();
+                    } else {
+                        header("Location: " . URL . "login");
+                        exit();
+                    }
+                    break;
+
                 case "deleteKeyword":
                   if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['keyword_name'])) {
                       $chatbotController->deleteKeyword();

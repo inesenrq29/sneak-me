@@ -20,6 +20,12 @@
                             <input type="hidden" name="keyword_name" value="<?php echo htmlspecialchars($item['keyword_name']); ?>">
                             <button type="submit">Supprimer</button>
                         </form>
+                        <form method="POST" action="<?= URL ?>chatbot-update">
+                            <!-- Champ caché pour envoyer le mot-clé à modifier -->
+                            <input type="hidden" name="keyword_id" value="<?php echo htmlspecialchars($item['keyword_id']); ?>">
+                            <input type="hidden" name="response_id" value="<?php echo htmlspecialchars($item['response_id']); ?>">
+                            <button type="submit">Modifier</button>
+                        </form>
                     </td>                          
                 </tr>
             <?php endforeach; ?>
