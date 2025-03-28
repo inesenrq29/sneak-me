@@ -58,20 +58,22 @@ class ChatbotController {
     }
 
     public function updateKeyword() {
+        if (!empty($_POST['keyword_name']) && !empty($_POST['response_name']) &&
+            !empty($_POST['keyword_id']) && !empty($_POST['response_id'])) {
 
-            if (!empty($_POST['keyword_name']) && !empty($_POST['response_name'])) {
-                $keyword_name = $_POST['keyword_name'];
-                $response_name = $_POST['response_name'];
+            $keyword_name = $_POST['keyword_name'];
+            $response_name = $_POST['response_name'];
+            $keyword_id = intval($_POST['keyword_id']); // S'assurer que c'est bien un entier
+            $response_id = intval($_POST['response_id']); // S'assurer que c'est bien un entier
 
-                $chatbotModel = new ChatbotModel();
+            $chatbotModel = new ChatbotModel();
 
-                $keywordUpdated = $chatbotModel->updateKeyword($keyword_name);
-                $responseUpdated = $chatbotModel->updateResponse($response_name);
-
-            }
-
-            include __DIR__ . '/../Views/chatbotUpdate.php';
+            $keywordUpdated = $chatbotModel->updateKeyword($keyword_name, $keyword_id);
+            $responseUpdated = $chatbotModel->updateResponse($response_name, $response_id);
         }
+
+        include __DIR__ . '/../Views/chatbotUpdate.php';
+    }
 
 
 
