@@ -53,23 +53,6 @@ foreach ($keywordsAndResponses as $row) {
 <p><strong>ID Réponse :</strong> <?= $response_id ?></p>
 <p><strong>Réponse :</strong> <?= $response_name ?></p>
 
-<?php if (isset($updateSuccess) && $updateSuccess): ?>
-    <div class="container-md">
-        <div class="alert alert-success" role="alert">
-            <p>Le mot-clé et la réponse ont bien été modifiés.</p>
-            <button type="button" class="btn-close" aria-label="Fermer">Fermer</button>
-        </div>
-    </div>
-<?php elseif (isset($errorMessage)): ?>
-    <div class="container-md">
-        <div class="alert alert-danger" role="alert">
-            <p>Erreur: <?= htmlspecialchars($errorMessage) ?></p>
-            <button type="button" class="btn-close" aria-label="Fermer">Fermer</button>
-        </div>
-    </div>
-<?php endif; ?>
-
-
 <form method="post" action="">
     <input type="hidden" name="keyword_id" value="<?= $keyword_id ?>" />
     <input type="hidden" name="response_id" value="<?= $response_id ?>" />
@@ -84,5 +67,31 @@ foreach ($keywordsAndResponses as $row) {
     </div>
     <button type="submit">Modifier</button>
 </form>
+
+<?php if (isset($updateSuccess) && $updateSuccess): ?>
+    <div class="container-md">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p>Le mot-clé et la réponse ont bien été modifiés.</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer">Fermer</button>
+        </div>
+    </div>
+<?php elseif (isset($errorMessage)): ?>
+    <div class="container-md">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <p>Erreur: <?= htmlspecialchars($errorMessage) ?></p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer">Fermer</button>
+        </div>
+    </div>
+<?php endif; ?>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.btn-close').forEach(button => {
+            button.addEventListener('click', function() {
+                this.closest('.alert').remove();
+            });
+        });
+    });
+</script>
 
 <a href="<?= URL ?>chatbot"><button>Retour au chat</button></a>

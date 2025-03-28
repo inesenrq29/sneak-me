@@ -8,28 +8,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['keyword_name']) && !
         $keyword_name = trim($_POST['keyword_name']);
         $response_name = trim($_POST['response_name']);
 
-        // fonction pour ajouter un mot-clé
+        // on ajoute le mot-clé et la réponse
         $keywordSuccess = $chatbotModel->addKeyword($keyword_name);
-
-        // fonction pour ajouter une réponse
         $responseSuccess = $chatbotModel->addResponse($response_name);
 
-        if ($keywordSuccess && $responseSuccess) {
-            // Tentative d'association
-            $associationResult = $chatbotModel->associate($keyword_name, $response_name);
-
-            if ($associationResult === "mot-clé déjà associé") {
-                $errorMessage = "Le mot-clé est déjà associé à cette réponse.";
-            } elseif ($associationResult) {
-                $associationSuccess = true;
-            } else {
-                $associationSuccess = false;
-            }
-        } else {
-            $associationSuccess = false;
+        // on vérifie l'association
+        $associationResult = $chatbotModel->associate($keyword_name, $response_name);
+        
+        if ($associationResult === "Mot-clé déjà associé.") {
+            throw new Exception("Le mot-clé est déjà associé à cette réponse.");
+        } elseif (!$associationResult) {
+            throw new Exception("Erreur lors de l'association du mot-clé et de la réponse.");
         }
+
+        $successMessage = "Le mot-clé '$keyword_name' et la réponse ont été ajoutés et associés avec succès.";
+        
     } catch (Exception $exception) {
-        $errorMessage = "Une erreur est survenue : " . $exception->getMessage();
+        $errorMessage = $exception->getMessage();
     }
 }
 ?>
@@ -46,18 +41,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['keyword_name']) && !
     <button type="submit">Ajouter</button>
 </form>
 
-<?php if (isset($associationSuccess) && $associationSuccess): ?>
+<?php if (isset($successMessage)): ?>
     <div class="container-md">
-        <div class="alert alert-success" role="alert">
-            <p>Le mot-clé et la réponse ont bien été ajoutés et associés.</p>
-            <button type="button" class="btn-close" aria-label="Fermer">Fermer</button>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?= htmlspecialchars($successMessage) ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer">Fermer</button>
         </div>
     </div>
 <?php elseif (isset($errorMessage)): ?>
     <div class="container-md">
-        <div class="alert alert-danger" role="alert">
-            <p>Erreur: <?= htmlspecialchars($errorMessage) ?></p>
-            <button type="button" class="btn-close" aria-label="Fermer">Fermer</button>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?= htmlspecialchars($errorMessage) ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer">Fermer</button>
         </div>
     </div>
 <?php endif; ?>
