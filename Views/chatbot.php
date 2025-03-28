@@ -1,14 +1,4 @@
-<?php
-require_once __DIR__ . '/../Includes/header.php';
- ?>
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Chatbot - Mots-clés et Réponses</title>
-</head>
-<body>
+<body id="chatbot_body">
     <h1>Chatbot - Mots-clés et Réponses</h1>
     <a href="<?= URL ?>chatbot-add"><button>Ajouter un mot-clé et une réponse</button></a>
     <table border="1">
@@ -42,4 +32,3 @@ require_once __DIR__ . '/../Includes/header.php';
         </tbody>
     </table>
 </body>
-</html>
