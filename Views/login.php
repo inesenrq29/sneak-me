@@ -6,36 +6,45 @@ if (!isset($_SESSION['captcha'])) {
 $captcha = $_SESSION['captcha'];
 ?>
 
-<form action="" method="post">
-
-<div>
-    <label for="username">Entrer votre identifiant: </label>
-    <input type="text" name="username" id="username" required/>
-</div>
-
-<div>
-    <label for="lastname">Entrer votre nom: </label>
-    <input type="text" name="honeypot" />
-</div>
-<div>
-    <label for="password">Entrer votre mot de passe: </label>
-    <input type="password" name="password" id="password" required />
-</div>
-   <div>
-        <label for="captcha">Saisir le captcha: </label>
-        <input type="text" name="captcha" id="captcha" required />
+<div class="login-container">
+    <div class="welcome-section">
+        <img src="<?= URL ?>Public/images/logo-white.png" alt="SneakMe Logo" class="login-logo">
+        <h2>Bienvenue sur SneakMe</h2>
+        <p>Connectez-vous pour accéder à votre espace administrateur</p>
     </div>
-<div>
-    <input type="submit" value="Se connecter"/>
-</div>
-    <p>Captcha: <?php echo $captcha; ?></p>
-</form>
 
-<?php
-// Affichage de l'erreur si le captcha ou les identifiants sont incorrects
-if (isset($_SESSION['error'])) {
-    echo '<p style="color:red;">' . $_SESSION['error'] . '</p>';
-    unset($_SESSION['error']);
-}
-?>
+    <form action="" method="post">
+        <h1>Connexion</h1>
+
+        <div class="form-group">
+            <label for="username">Identifiant</label>
+            <input type="text" name="username" id="username" required/>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" id="password" required />
+        </div>
+
+        <div class="form-group">
+            <label for="captcha">Captcha</label>
+            <input type="text" name="captcha" id="captcha" required />
+            <div class="captcha-container"><?php echo $captcha; ?></div>
+        </div>
+
+        <div class="form-group">
+            <input type="hidden" name="honeypot" />
+        </div>
+
+        <input type="submit" value="Se connecter"/>
+
+        <?php
+        // Affichage de l'erreur si le captcha ou les identifiants sont incorrects
+        if (isset($_SESSION['error'])) {
+            echo '<div class="error-message">' . $_SESSION['error'] . '</div>';
+            unset($_SESSION['error']);
+        }
+        ?>
+    </form>
+</div>
 

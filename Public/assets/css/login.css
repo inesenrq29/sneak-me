@@ -1,0 +1,188 @@
+/* Définition des couleurs de la charte graphique */
+:root {
+    --primary-color: #5271FF;
+    --secondary-color: #D7FF7B;
+    --white: #FFFFFF;
+    --black: #000000;
+    --gray-light: #f5f5f5;
+    --gray-dark: #333333;
+    --error-color: #ff4444;
+}
+
+/* Style spécifique à la page de login */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #3d5ae6 100%);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Conteneur principal */
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px;
+}
+
+/* Section de bienvenue */
+.welcome-section {
+    flex: 1;
+    text-align: center;
+    color: var(--white);
+    padding: 2rem;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome-section h2 {
+    font-size: 2.5em;
+    margin: 1rem 0;
+    font-weight: 600;
+}
+
+.welcome-section p {
+    font-size: 1.1em;
+    opacity: 0.9;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.login-logo {
+    width: 150px;
+    height: auto;
+    margin: 0 auto 2rem auto;
+    display: block;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Conteneur du formulaire */
+form {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Titre du formulaire */
+h1 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2em;
+}
+
+/* Champs de formulaire */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--gray-dark);
+  font-weight: 500;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid var(--gray-light);
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* Bouton de soumission */
+input[type="submit"] {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #3d5ae6;
+}
+
+/* Message d'erreur */
+.error-message {
+    color: var(--error-color);
+    text-align: center;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    background-color: rgba(255, 68, 68, 0.1);
+}
+
+/* Captcha */
+.captcha-container {
+    background-color: var(--gray-light);
+    padding: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    margin: 1rem 0;
+    font-family: 'Courier New', monospace;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .welcome-section {
+        padding: 1rem;
+    }
+
+    .welcome-section h2 {
+        font-size: 2em;
+    }
+
+    .login-logo {
+        width: 120px;
+        margin-bottom: 1.5rem;
+    }
+
+    form {
+        margin: 0;
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        padding: 0.6rem;
+    }
+}
