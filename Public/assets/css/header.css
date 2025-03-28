@@ -20,13 +20,16 @@ body {
 
 .menu {
     background-color: var(--primary-color);
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    height: 60px;
+    display: flex;
+    align-items: center;
 }
 
 .menu ul {
@@ -36,6 +39,7 @@ body {
     list-style: none;
     max-width: 1200px;
     margin: 0 auto;
+    width: 100%;
 }
 
 .menu li {
@@ -64,6 +68,16 @@ body {
     font-weight: bold;
 }
 
+.logo-img {
+    height: 60px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-img {
+    transform: scale(1.05);
+}
+
 .user-menu {
     display: flex;
     align-items: center;
@@ -78,9 +92,15 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+    .menu {
+        height: auto;
+        padding: 0.5rem;
+    }
+
     .menu ul {
         flex-direction: column;
         text-align: center;
+        padding: 1rem 0;
     }
 
     .menu li {
@@ -103,5 +123,9 @@ body {
 
     .menu ul.active {
         display: flex;
+    }
+
+    .logo-img {
+        height: 25px;
     }
 } 
