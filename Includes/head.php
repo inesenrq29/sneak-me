@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="<?= URL ?>Public/assets/css/header.css">
     <link rel="stylesheet" type="text/css" href="<?= URL ?>Public/assets/css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= URL ?>Public/assets/css/chatbot.css">
 
     <title>Admin - SneakMe</title>
 </head>
