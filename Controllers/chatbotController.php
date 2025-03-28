@@ -58,7 +58,19 @@ class ChatbotController {
     }
 
     public function updateKeyword() {
-        include __DIR__ . '/../Views/chatbotAdd.php';
+
+            if (!empty($_POST['keyword_name']) && !empty($_POST['response_name'])) {
+                $keyword_name = $_POST['keyword_name'];
+                $response_name = $_POST['response_name'];
+
+                $chatbotModel = new ChatbotModel();
+
+                $keywordUpdated = $chatbotModel->updateKeyword($keyword_name);
+                $responseUpdated = $chatbotModel->updateResponse($response_name);
+
+            }
+
+            include __DIR__ . '/../Views/chatbotUpdate.php';
         }
 
 

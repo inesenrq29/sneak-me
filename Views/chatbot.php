@@ -32,8 +32,8 @@ require_once __DIR__ . '/../Includes/header.php';
                         </form>
                         <form method="POST" action="<?= URL ?>chatbot-update">
                             <!-- Champ caché pour envoyer le mot-clé à modifier -->
-                            <input type="hidden" name="keyword_name" value="<?php echo htmlspecialchars($item['keyword_name']); ?>">
-                            <input type="hidden" name="response_name" value="<?php echo htmlspecialchars($item['response_name']); ?>">
+                            <input type="hidden" name="keyword_id" value="<?php echo htmlspecialchars($item['keyword_id']); ?>">
+                            <input type="hidden" name="response_id" value="<?php echo htmlspecialchars($item['response_id']); ?>">
                             <button type="submit">Modifier</button>
                         </form>
                     </td>                          
