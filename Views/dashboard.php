@@ -1,55 +1,32 @@
-<?php
-require_once __DIR__ . '/../Includes/header.php';
-?>
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard - Statistiques</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Si vous avez un fichier CSS -->
-</head>
-<body>
-    <h1>Dashboard</h1>
+<body id="dashboard_body">
+    <div class="main-content">     
+        <div class="header">
+            <h1 class="title">Dashboard</h1>
+        </div>
+      
+        <div class="dashboard-cards">
+            <div class="card">
+                <i class="fas fa-users"></i>
+                <h3>Utilisateurs non admin</h3>
+                <p><?= htmlspecialchars($nonAdminCount); ?></p>
+            </div>
+            <div class="card">
+                <i class="fas fa-tags"></i>
+                <h3>Mots-Clés</h3>
+                <p><?= htmlspecialchars($keywordsCount); ?></p>
+            </div>
+            <div class="card">
+                <i class="fas fa-comments"></i>
+                <h3>Réponses</h3>
+                <p><?= htmlspecialchars($responsesCount); ?></p>
+            </div>
+        </div>
         
-    <h2>Statistiques du Chatbot</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Valeur</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Utilisateurs non admin</td>
-                <td><?= htmlspecialchars($nonAdminCount); ?></td>
-            </tr>
-            <tr>
-                <td>Nombre de mots-clés</td>
-                <td><?= htmlspecialchars($keywordsCount); ?></td>
-            </tr>
-            <tr>
-                <td>Nombre de réponses</td>
-                <td><?= htmlspecialchars($responsesCount); ?></td>
-            </tr>
-        </tbody>
-    </table>
-
-    <br>
-    <a href="<?= URL ?>chatbot">Retour à la gestion des mots-clés</a> 
+        <div class="link-container">
+            <a class="btn" href="<?= URL ?>chatbot">
+                <i class="fas fa-arrow-left"></i> Retour à la gestion des mots-clés
+            </a> 
+        </div>
+    </div> 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-?>
