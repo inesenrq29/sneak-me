@@ -6,6 +6,8 @@ require_once __DIR__ . '/../Models/chatbotModel.php';
 class ChatbotController {
 
     public function read() {
+        require_once __DIR__ . "/../Includes/head.php";
+        require_once __DIR__ . "/../Includes/header.php";
 
         $chatbotModel = new ChatbotModel(); 
         $keywordsAndResponses = $chatbotModel->getAllKeywordsAndResponses();
@@ -26,7 +28,12 @@ class ChatbotController {
     }
     
     public function addChatKeyword() {
-        $message = ""; // Stockage du message
+
+        require_once(__DIR__ . '/../Includes/header.php');
+        require_once(__DIR__ . '/../Includes/db.php');
+        require_once(__DIR__ . '/../Models/chatbotModel.php');
+        
+        $message = ""; // Stockage du message*
 
         if (!empty($_POST['keyword_name']) && !empty($_POST['response_name'])) {
             $keyword_name = $_POST['keyword_name'];

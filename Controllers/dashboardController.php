@@ -5,6 +5,9 @@ require_once __DIR__ . "/../Models/dashboardModel.php";
 class DashboardController {
 
     public function dashboard() {
+        require_once __DIR__ . "/../Includes/head.php";
+        require_once __DIR__ . "/../Includes/header.php";
+
         $dashboardModel = new DashboardModel();
         $nonAdminCount = $dashboardModel->countNonAdminUsers();
         $keywordsCount = $dashboardModel->countKeyword();
