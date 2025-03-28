@@ -37,8 +37,8 @@ class ChatbotController {
         $message = ""; // Stockage du message*
 
         if (!empty($_POST['keyword_name']) && !empty($_POST['response_name'])) {
-            $keyword_name = $_POST['keyword_name'];
-            $response_name = $_POST['response_name'];
+            $keyword_name = strtolower($_POST['keyword_name']);
+            $response_name = strtolower($_POST['response_name']);
 
             $chatbotModel = new ChatbotModel();
 
@@ -66,16 +66,17 @@ class ChatbotController {
     }
 
     public function updateKeyword() {
-            require_once __DIR__ . "/../Includes/head.php";
-            require_once(__DIR__ . '/../Includes/header.php');
+        require_once __DIR__ . "/../Includes/head.php";
+        require_once(__DIR__ . '/../Includes/header.php');
 
         if (!empty($_POST['keyword_name']) && !empty($_POST['response_name']) &&
             !empty($_POST['keyword_id']) && !empty($_POST['response_id'])) {
 
-            $keyword_name = $_POST['keyword_name'];
-            $response_name = $_POST['response_name'];
-            $keyword_id = intval($_POST['keyword_id']); // S'assurer que c'est bien un entier
-            $response_id = intval($_POST['response_id']); // S'assurer que c'est bien un entier
+            // Conversion en minuscules
+            $keyword_name = strtolower($_POST['keyword_name']);
+            $response_name = strtolower($_POST['response_name']);
+            $keyword_id = intval($_POST['keyword_id']);
+            $response_id = intval($_POST['response_id']);
 
             $chatbotModel = new ChatbotModel();
 

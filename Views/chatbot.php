@@ -16,8 +16,8 @@
         <tbody>
             <?php foreach ($keywordsAndResponses as $item): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($item['keyword_name']); ?></td>
-                    <td><?php echo htmlspecialchars($item['response_name']); ?></td>
+                    <td><?php echo htmlspecialchars(strtolower($item['keyword_name'])); ?></td>
+                    <td><?php echo htmlspecialchars(strtolower($item['response_name'])); ?></td>
                     <td>
                         <div class="action-buttons">
                             <form method="POST" action="index.php?page=deleteKeyword" style="display: inline;">
