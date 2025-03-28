@@ -42,40 +42,37 @@ foreach ($keywordsAndResponses as $row) {
 ?>
 
 
-<h2>Modifier un mot-clé et sa réponse</h2>
+<h2 class="title-add">Modifier un mot-clé et sa réponse</h2>
 
-<p><strong>ID Mot-clé :</strong> <?= $keyword_id ?></p>
-<p><strong>Mot-clé :</strong> <?= $keyword_name ?></p>
-<p><strong>ID Réponse :</strong> <?= $response_id ?></p>
-<p><strong>Réponse :</strong> <?= $response_name ?></p>
-
+<div class="form-container">
 <form method="post" action="">
     <input type="hidden" name="keyword_id" value="<?= $keyword_id ?>" />
     <input type="hidden" name="response_id" value="<?= $response_id ?>" />
 
-    <div>
+    <div class="form-group">
         <label for="keyword_name">Modifier le mot-clé :</label>
         <input type="text" name="keyword_name" id="keyword_name" value="<?= $keyword_name ?>" required />
     </div>
-    <div>
+    <div class="form-group">
         <label for="response_name">Modifier la réponse associée :</label>
         <input type="text" name="response_name" id="response_name" value="<?= $response_name ?>" required />
     </div>
-    <button type="submit">Modifier</button>
+    <button type="submit" class="submit-btn">Modifier</button>
 </form>
+</div>
 
 <?php if (isset($updateSuccess) && $updateSuccess): ?>
     <div class="container-md">
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="message success alert alert-success alert-dismissible fade show" role="alert">
             <p>Le mot-clé et la réponse ont bien été modifiés.</p>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer">Fermer</button>
+            <button type="button" class="close-btn btn-close" data-bs-dismiss="alert" aria-label="Fermer">Fermer</button>
         </div>
     </div>
 <?php elseif (isset($errorMessage)): ?>
     <div class="container-md">
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="message error alert alert-danger alert-dismissible fade show" role="alert">
             <p>Erreur: <?= htmlspecialchars($errorMessage) ?></p>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer">Fermer</button>
+            <button type="button" class="close-btn btn-close" data-bs-dismiss="alert" aria-label="Fermer">Fermer</button>
         </div>
     </div>
 <?php endif; ?>
@@ -90,4 +87,4 @@ foreach ($keywordsAndResponses as $row) {
     });
 </script>
 
-<a href="<?= URL ?>chatbot"><button>Retour au chat</button></a>
+<a class="link-button" href="<?= URL ?>chatbot"><button class="backchat"><i class="fas fa-arrow-left"></i> Retour au chat</button></a>
