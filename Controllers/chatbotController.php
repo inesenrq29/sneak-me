@@ -37,8 +37,8 @@ class ChatbotController {
         $message = ""; // Stockage du message*
 
         if (!empty($_POST['keyword_name']) && !empty($_POST['response_name'])) {
-            $keyword_name = $_POST['keyword_name'];
-            $response_name = $_POST['response_name'];
+            $keyword_name = strtolower($_POST['keyword_name']);
+            $response_name = strtolower($_POST['response_name']);
 
             $chatbotModel = new ChatbotModel();
 
