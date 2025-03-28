@@ -1,10 +1,6 @@
 <?php
 $title = "Modification de mot-clé et réponse";
 
-require_once(__DIR__ . '/../Includes/header.php');
-require_once(__DIR__ . '/../Includes/db.php');
-require_once(__DIR__ . '/../Models/chatbotModel.php');
-
 $chatbotModel = new ChatbotModel();
 $keywordsAndResponses = $chatbotModel->getAllKeywordsAndResponses();
 
