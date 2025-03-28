@@ -1,11 +1,11 @@
 <?php
-require_once __DIR__ . '/../Includes/db.php'; 
+require_once __DIR__ . '/../Includes/db.php';
 
 class ChatbotModel {
 
     public function getAllKeywordsAndResponses() {
-        
-        $pdo = getConnection(); 
+
+        $pdo = getConnection();
 
         // Requête SQL pour récupérer les mots-clés et leurs réponses
         $stmt = $pdo->query('
@@ -19,13 +19,13 @@ class ChatbotModel {
     }
 
     public function deleteKeyword($keyword_name) {
-        $pdo = getConnection();      
+        $pdo = getConnection();
         $query = "DELETE FROM keyword WHERE keyword_name = :keyword_name";
-        $stmt = $pdo->prepare($query);  
-        $stmt->bindParam(':keyword_name', $keyword_name, PDO::PARAM_STR); 
-        return $stmt->execute();  
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':keyword_name', $keyword_name, PDO::PARAM_STR);
+        return $stmt->execute();
     }
-                    
+
    public function addKeyword($keyword_name) {
        $dbh = getConnection();
 
@@ -112,12 +112,6 @@ class ChatbotModel {
             return $e->getMessage();
         }
     }
-
-
-
-
-
-
 }
 ?>
 

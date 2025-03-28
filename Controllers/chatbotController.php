@@ -57,6 +57,10 @@ class ChatbotController {
         include __DIR__ . '/../Views/chatbotAdd.php';
     }
 
+    public function updateKeyword() {
+        include __DIR__ . '/../Views/chatbotAdd.php';
+        }
+
 
 
 }
