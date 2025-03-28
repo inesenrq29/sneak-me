@@ -29,6 +29,7 @@ class ChatbotController {
     
     public function addChatKeyword() {
 
+        require_once __DIR__ . "/../Includes/head.php";
         require_once(__DIR__ . '/../Includes/header.php');
         require_once(__DIR__ . '/../Includes/db.php');
         require_once(__DIR__ . '/../Models/chatbotModel.php');
@@ -65,6 +66,8 @@ class ChatbotController {
     }
 
     public function updateKeyword() {
+            require_once __DIR__ . "/../Includes/head.php";
+
         if (!empty($_POST['keyword_name']) && !empty($_POST['response_name']) &&
             !empty($_POST['keyword_id']) && !empty($_POST['response_id'])) {
 
