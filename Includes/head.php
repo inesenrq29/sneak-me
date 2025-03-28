@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="<?= URL ?>Public/assets/css/chatbot.css">
     <link rel="stylesheet" type="text/css" href="<?= URL ?>Public/assets/css/chatbotadd.css">
+    <link rel="stylesheet" type="text/css" href="<?= URL ?>Public/assets/css/chatbotupdate.css">
 
     <title>Admin - SneakMe</title>
 </head>
