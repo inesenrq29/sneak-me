@@ -41,7 +41,7 @@ class ProductController {
         if (!move_uploaded_file($file['tmp_name'], $target_file)) {
             throw new RuntimeException("L'ajout de l'image n'a pas fonctionné");
         } else {
-            return $nom . "_" . $file['name'];
+            return $file['name'];
         }
     }
 

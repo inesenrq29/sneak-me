@@ -20,16 +20,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST['title']) && !empty($
         exit;
         $description = trim($_POST['description']);
         $price = trim($_POST['price']);
-        $image = trim($_POST['image']);
+        $image = '';
+        if (isset($_FILES['image'])) {
+            $dir = "Public/uploads/";
+            $image = $productController->ajoutImage($_FILES['image'], $dir, $title);
+        }
 
         // Mise à jour du mot-clé et de la réponse
         $productUpdated = $productModel->updateProduct($title, $description, $price, $image, $product_id);
+        var_dump($productUpdated);
+        exit;
 
-        if ($productUpdated) {
-            $updateSuccess = true;
-        } else {
-            $updateSuccess = false;
+        if (!$productUpdated) {
+            throw new Exception("Erreur lors de la modification du produit.");
         }
+
+        $successMessage = "Le produit '$title' a été modifié avec succès.";
+
     } catch (Exception $exception) {
         $errorMessage = "Une erreur est survenue : " . $exception->getMessage();
     }
@@ -51,7 +58,7 @@ foreach ($products as $row) {
 <h2 class="title-add">Modifier un produit</h2>
 
 <div class="form-container">
-<form method="post" action="">
+<form method="post" action="" enctype="multipart/form-data">
     <input type="hidden" name="product_id" value="<?= $product_id ?>" />
 
     <div class="form-group">
@@ -67,28 +74,14 @@ foreach ($products as $row) {
         <input type="text" name="price" id="price" value="<?= $price ?>" required />
     </div>
     <div class="form-group">
-        <label for="image">Modifier l'image :</label>
-        <input type="text" name="image" id="image" value="<?= $image ?>" required />
+            <label for="image">Image : </label>
+            <input type="file" name="image" id="image" accept="image/jpeg,image/png,image/webp" />
     </div>
     <button type="submit" class="submit-btn">Modifier</button>
 </form>
 </div>
 
-<?php if (isset($updateSuccess) && $updateSuccess): ?>
-    <div class="container-md">
-        <div class="message success alert alert-success alert-dismissible fade show" role="alert">
-            <p>Le produit a bien été modifié.</p>
-            <button type="button" class="close-btn btn-close" data-bs-dismiss="alert" aria-label="Fermer">Fermer</button>
-        </div>
-    </div>
-<?php elseif (isset($errorMessage)): ?>
-    <div class="container-md">
-        <div class="message error alert alert-danger alert-dismissible fade show" role="alert">
-            <p>Erreur: <?= htmlspecialchars($errorMessage) ?></p>
-            <button type="button" class="close-btn btn-close" data-bs-dismiss="alert" aria-label="Fermer">Fermer</button>
-        </div>
-    </div>
-<?php endif; ?>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
