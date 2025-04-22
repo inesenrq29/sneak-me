@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST['title']) && !empty($
         $price = trim($_POST['price']);
         $image = '';
         if (isset($_FILES['image'])) {
-            $dir = "Public/uploads/";
+            $dir = "Public/images/";
             $image = $productController->ajoutImage($_FILES['image'], $dir, $title);
         }
 
