@@ -48,7 +48,6 @@ class ProductController {
             $title = $_POST['title'];
             $description = $_POST['description'];
             $price = $_POST['price'];
-            $category_id = $_POST['category_id'];
             
             // Gestion de l'image
             $image = '';
@@ -72,7 +71,7 @@ class ProductController {
 
             $productModel = new ProductModel();
             
-            $productAdded = $productModel->addProduct($title, $description, $price, $image, $category_id);
+            $productAdded = $productModel->addProduct($title, $description, $price, $image);
 
             if ($productAdded) {
                 $message = "<p class='success'>Le produit a bien été ajouté.</p>";
@@ -97,7 +96,6 @@ class ProductController {
             $description = $_POST['description'];
             $price = $_POST['price'];
             $product_id = intval($_POST['product_id']);
-            $category_id = $_POST['category_id'];
 
             $productModel = new ProductModel();
             
@@ -124,7 +122,7 @@ class ProductController {
                 }
             }
 
-            $productUpdated = $productModel->updateProduct($title, $description, $price, $image, $category_id, $product_id);
+            $productUpdated = $productModel->updateProduct($title, $description, $price, $image, $product_id);
         }
 
         include __DIR__ . '/../Views/productUpdate.php';

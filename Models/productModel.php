@@ -27,7 +27,7 @@ class ProductModel {
         return $stmt->execute();
     }
 
-    public function addProduct($title, $description, $price, $image, $category_id) {
+    public function addProduct($title, $description, $price, $image) {
         $dbh = getConnection();
 
         // Vérifier si le produit existe déjà
@@ -41,18 +41,17 @@ class ProductModel {
         }
 
         // Insérer le produit s'il n'existe pas
-        $req = "INSERT INTO product (title, description, price, image, category_id) 
-                VALUES(:title, :description, :price, :image, :category_id)";
+        $req = "INSERT INTO product (title, description, price, image) 
+                VALUES(:title, :description, :price, :image)";
         $stmt = $dbh->prepare($req);
         $stmt->bindValue(":title", $title, PDO::PARAM_STR);
         $stmt->bindValue(":description", $description, PDO::PARAM_STR);
         $stmt->bindValue(":price", $price, PDO::PARAM_STR);
         $stmt->bindValue(":image", $image, PDO::PARAM_STR);
-        $stmt->bindValue(":category_id", $category_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
-    public function updateProduct($title, $description, $price, $image, $category_id, $product_id) {
+    public function updateProduct($title, $description, $price, $image, $product_id) {
         $dbh = getConnection();
 
         $checkQuery = "UPDATE product SET 
@@ -60,7 +59,6 @@ class ProductModel {
             description = :description,
             price = :price,
             image = :image,
-            category_id = :category_id
             WHERE id = :product_id";
 
         $checkStmt = $dbh->prepare($checkQuery);
@@ -68,7 +66,6 @@ class ProductModel {
         $checkStmt->bindValue(":description", $description, PDO::PARAM_STR);
         $checkStmt->bindValue(":price", $price, PDO::PARAM_STR);
         $checkStmt->bindValue(":image", $image, PDO::PARAM_STR);
-        $checkStmt->bindValue(":category_id", $category_id, PDO::PARAM_INT);
         $checkStmt->bindValue(":product_id", $product_id, PDO::PARAM_INT);
         return $checkStmt->execute();
     }
