@@ -36,19 +36,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['title']) && !empty($
     <form method="post" action="" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">Titre du produit : </label>
-            <input type="text" name="title" id="title" required />
+            <input type="text" 
+                   name="title" 
+                   id="title" 
+                   required 
+                   value="<?= isset($_POST['title']) ? htmlspecialchars($_POST['title']) : '' ?>" />
         </div>
         <div class="form-group">
             <label for="description">Description : </label>
-            <textarea name="description" id="description" required></textarea>
+            <textarea name="description" 
+                      id="description" 
+                      required><?= isset($_POST['description']) ? htmlspecialchars($_POST['description']) : '' ?></textarea>
         </div>
         <div class="form-group">
             <label for="price">Prix : </label>
-            <input type="number" step="0.01" name="price" id="price" required />
+            <input type="number" 
+                   step="0.01" 
+                   name="price" 
+                   id="price" 
+                   required 
+                   value="<?= isset($_POST['price']) ? htmlspecialchars($_POST['price']) : '' ?>" />
         </div>
         <div class="form-group">
             <label for="image">Image : </label>
-            <input type="file" name="image" id="image" accept="image/jpeg,image/png,image/webp" />
+            <input type="file" 
+                   name="image" 
+                   id="image" 
+                   accept="image/jpeg,image/png,image/webp" />
         </div>
         <button type="submit" class="submit-btn">Ajouter</button>
     </form>
