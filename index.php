@@ -44,6 +44,24 @@ try {
         }
         break;
 
+      case "product-add":
+        if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
+            $productController->addProduct();
+        } else {
+            header("Location: " . URL . "login");
+            exit();
+        }
+        break;
+
+        case "deleteProduct":
+          if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
+              $productController->deleteProduct();
+          } else {
+              header("Location: " . URL . "login");
+              exit();
+          }
+          break;
+
     case "dashboard":
       if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
         $dashboardController->dashboard();
