@@ -13,7 +13,7 @@ class ProductController {
         }
 
         // on teste que l'on ait bien un répertoire vers lequel enregistrer le fichier
-        if(!file_exists($dir)) if (!mkdir($dir, ) && !is_dir($dir)){
+        if(!file_exists($dir)) if (!mkdir($dir, 0777, true ) && !is_dir($dir)){
             throw new RuntimeException(sprintf('Le répertoir "%s" n\a pas été créé !', $dir));
         }
 
@@ -97,9 +97,8 @@ class ProductController {
                     $image = $this->ajoutImage($_FILES['image'], $dir, $title);
                 }
 
-            $productModel = new ProductModel();
-            
-            $productAdded = $productModel->addProduct($title, $description, $price, $image);
+                $productModel = new ProductModel();
+                $productAdded = $productModel->addProduct($title, $description, $price, $image);
 
                 if ($productAdded) {
                     $message = "<p class='success'>Le produit a bien été ajouté.</p>";
