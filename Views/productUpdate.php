@@ -67,7 +67,7 @@ foreach ($products as $row) {
         <input type="text" name="price" id="price" value="<?= $price ?>" required />
     </div>
     <div class="form-group">
-        <label for="image">Modifier l'image' :</label>
+        <label for="image">Modifier l'image :</label>
         <input type="text" name="image" id="image" value="<?= $image ?>" required />
     </div>
     <button type="submit" class="submit-btn">Modifier</button>
