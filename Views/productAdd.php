@@ -1,7 +1,7 @@
 <?php
 $title = "Ajout de produit";
 
-$productModel = new ProductModel();
+$productController = new ProductController();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['price'])) {
     try {
@@ -13,11 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['title']) && !empty($
         $image = '';
         if (isset($_FILES['image'])) {
             $dir = "Public/uploads/";
-            $image = $productModel->ajoutImage($_FILES['image'], $dir, $title);
+            $image = $productController->ajoutImage($_FILES['image'], $dir, $title);
         }
 
         // On ajoute le produit
-        $productSuccess = $productModel->addProduct($title, $description, $price, $image);
+        $productSuccess = $productController->addProduct($title, $description, $price, $image);
 
         if (!$productSuccess) {
             throw new Exception("Erreur lors de l'ajout du produit.");
