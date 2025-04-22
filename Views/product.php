@@ -21,7 +21,8 @@
                     <td><?php echo htmlspecialchars(strtolower($item['title'])); ?></td>
                     <td><?php echo htmlspecialchars(strtolower($item['description'])); ?></td>
                     <td><?php echo htmlspecialchars(strtolower($item['price'])); ?></td>
-                    <td><?php echo htmlspecialchars(strtolower($item['image'])); ?></td>
+                    <td><img src="<?= URL ?>Public/images/<?= htmlspecialchars($item['image']) ?>" alt="Image du produit" class="product-img">
+                    </td></td>
                     <td>
                         <div class="action-buttons">
                             <form method="POST" action="index.php?page=deleteProduct" style="display: inline;">
