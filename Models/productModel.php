@@ -12,8 +12,7 @@ class ProductModel {
                 title,
                 description,
                 price,
-                image,
-                category_id
+                image
             FROM product
         ');
 
