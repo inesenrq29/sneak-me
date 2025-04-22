@@ -4,6 +4,7 @@ session_start();
 require_once __DIR__ . "/Controllers/authController.php";
 require_once __DIR__ . "/Controllers/chatbotController.php";
 require_once __DIR__ . "/Controllers/dashboardController.php";
+require_once __DIR__ . "/Controllers/produitController.php";
 
 
 define("URL", str_replace("index.php", "",(isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER["PHP_SELF"]
@@ -36,7 +37,7 @@ try {
 
       case "produit":
         if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
-            $produitController->produit();
+            $produitController->read();
         } else {
             header("Location: " . URL . "login");
             exit();
