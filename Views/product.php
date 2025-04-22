@@ -16,21 +16,22 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($keywordsAndResponses as $item): ?>
+            <?php foreach ($products as $item): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars(strtolower($item['keyword_name'])); ?></td>
-                    <td><?php echo htmlspecialchars(strtolower($item['response_name'])); ?></td>
+                    <td><?php echo htmlspecialchars(strtolower($item['title'])); ?></td>
+                    <td><?php echo htmlspecialchars(strtolower($item['description'])); ?></td>
+                    <td><?php echo htmlspecialchars(strtolower($item['price'])); ?></td>
+                    <td><?php echo htmlspecialchars(strtolower($item['image'])); ?></td>
                     <td>
                         <div class="action-buttons">
                             <form method="POST" action="index.php?page=deleteProduct" style="display: inline;">
-                                <input type="hidden" name="keyword_name" value="<?php echo htmlspecialchars($item['keyword_name']); ?>">
+                                <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($item['id']); ?>">
                                 <button type="submit" class="action-button delete-button">
                                     <i class="fas fa-trash"></i> Supprimer
                                 </button>
                             </form>
                             <form method="POST" action="<?= URL ?>product-update" style="display: inline;">
-                                <input type="hidden" name="keyword_id" value="<?php echo htmlspecialchars($item['keyword_id']); ?>">
-                                <input type="hidden" name="response_id" value="<?php echo htmlspecialchars($item['response_id']); ?>">
+                            <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($item['id']); ?>">
                                 <button type="submit" class="action-button edit-button">
                                     <i class="fas fa-edit"></i> Modifier
                                 </button>

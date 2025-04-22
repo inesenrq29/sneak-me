@@ -1,0 +1,142 @@
+/* Définition des couleurs de la charte graphique */
+:root {
+    --primary-color: #5271FF;
+    --secondary-color: #D7FF7B;
+    --white: #FFFFFF;
+    --black: #000000;
+    --gray-light: #f5f5f5;
+    --gray-dark: #333333;
+    --danger-color: #ff4444;
+    --success-color: #00C851;
+}
+
+/* Style général */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--white);
+    margin: 0;
+    padding: 0;
+}
+
+#chatbot_body {
+    padding: 20px;
+    width: 100%;
+    margin-top: 120px;
+}
+
+/* En-tête */
+h1 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+/* Bouton d'ajout */
+.add-button {
+    background-color: var(--success-color);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 30px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+    background-color: #00994d;
+}
+
+/* Tableau */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--white);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+thead {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background-color: var(--gray-light);
+}
+
+/* Boutons d'action */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.action-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: var(--white);
+}
+
+.delete-button {
+    background-color: var(--danger-color);
+}
+
+.delete-button:hover {
+    background-color: #cc0000;
+}
+
+.edit-button {
+    background-color: var(--primary-color);
+}
+
+.edit-button:hover {
+    background-color: #3d5ae6;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+    #chatbot_body {
+        padding: 10px;
+        margin-top: 100px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .action-button {
+        width: 100%;
+    }
+} 
