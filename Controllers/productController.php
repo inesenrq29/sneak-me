@@ -97,8 +97,9 @@ class ProductController {
                     $image = $this->ajoutImage($_FILES['image'], $dir, $title);
                 }
 
-                $productModel = new ProductModel();
-                $productAdded = $productModel->addProduct($title, $description, $price, $image);
+            $productModel = new ProductModel();
+            
+            $productAdded = $productModel->addProduct($title, $description, $price, $image);
 
                 if ($productAdded) {
                     $message = "<p class='success'>Le produit a bien été ajouté.</p>";

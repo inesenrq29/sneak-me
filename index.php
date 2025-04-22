@@ -62,6 +62,15 @@ try {
           }
           break;
 
+          case "product-update":
+            if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
+                $productController->updateProduct();
+            } else {
+                header("Location: " . URL . "login");
+                exit();
+            }
+            break;
+
     case "dashboard":
       if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
         $dashboardController->dashboard();

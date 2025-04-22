@@ -35,7 +35,7 @@ class ProductModel {
 
         // Insérer le produit s'il n'existe pas
         $req = "INSERT INTO product (title, description, price, image) 
-                VALUES (:title, :description, :price, :image)";
+                VALUES(:title, :description, :price, :image)";
         $stmt = $dbh->prepare($req);
         
         $stmt->bindValue(":title", $title, PDO::PARAM_STR);
