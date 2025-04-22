@@ -12,6 +12,7 @@ define("URL", str_replace("index.php", "",(isset($_SERVER['HTTPS']) ? "https" : 
 $authController = new AuthController();
 $chatbotController = new ChatbotController();
 $dashboardController = new DashboardController();
+$produitController = new ProduitController();
 
 
 try {
@@ -32,6 +33,15 @@ try {
       header('Location: ' . URL . 'login');
       exit;
       break;
+
+      case "produit":
+        if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
+            $produitController->produit();
+        } else {
+            header("Location: " . URL . "login");
+            exit();
+        }
+        break;
 
     case "dashboard":
       if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {

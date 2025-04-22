@@ -6,6 +6,7 @@
             <li><a href="<?= URL ?>dashboard" class="logo">
                 <img src="<?= URL ?>Public/images/logo-white.png" alt="SneakMe Logo" class="logo-img">
             </a></li>
+            <li><a href="<?= URL ?>produit"><i class="fa-solid fa-cart-shopping"></i> Produits</a></li>
             <li><a href="<?= URL ?>dashboard"><i class="fas fa-chart-line"></i> Dashboard</a></li>
             <li><a href="<?= URL ?>chatbot"><i class="fas fa-comments"></i> Chatbot</a></li>
             <li class="user-menu">
