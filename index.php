@@ -33,6 +33,15 @@ try {
       exit;
       break;
 
+      case "product-add":
+        if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
+            $produitController->addChatKeyword();
+        } else {
+            header("Location: " . URL . "login");
+            exit();
+        }
+        break;
+
     case "dashboard":
       if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
         $dashboardController->dashboard();
