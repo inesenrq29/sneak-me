@@ -23,7 +23,7 @@
                     <td><?php echo htmlspecialchars(strtolower($item['price'])); ?></td>
                     <td>
                         <?php if (!empty($item['image'])): ?>
-                            <img src="<?= URL ?>Public/images/<?= htmlspecialchars($item['image']) ?>" 
+                            <img src="<?= URL ?>Public/uploads/<?= htmlspecialchars($item['image']) ?>"
                                  alt="Image de <?= htmlspecialchars($item['title']) ?>"
                                  style="max-width: 100px; height: auto;">
                         <?php else: ?>
@@ -38,12 +38,14 @@
                                     <i class="fas fa-trash"></i> Supprimer
                                 </button>
                             </form>
-                            <form method="POST" action="<?= URL ?>product-update" style="display: inline;">
-                            <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($item['id']); ?>">
+                            <form method="GET" action="index.php">
+                                <input type="hidden" name="page" value="product-update">
+                                <input type="hidden" name="id" value="<?= htmlspecialchars($item['id']) ?>">
                                 <button type="submit" class="action-button edit-button">
                                     <i class="fas fa-edit"></i> Modifier
                                 </button>
                             </form>
+
                         </div>
                     </td>                          
                 </tr>

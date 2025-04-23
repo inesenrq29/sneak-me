@@ -1,96 +1,60 @@
-<?php
-$title = "Modification du produit";
-
-$productModel = new ProductModel();
-$products = $productModel->getAllProduct();
-
-// Récupérer les IDs envoyés via POST
-$product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
-
-$title = "";
-$description = "";
-$price = "";
-$image = "";
-
-// Si le formulaire a été soumis, mettre à jour la base de données
-if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['price']) && !empty($_POST['image'])) {
-    try {
-        $title = trim($_POST['title']);
-        var_dump($_POST);
-        exit;
-        $description = trim($_POST['description']);
-        $price = trim($_POST['price']);
-        $image = '';
-        if (isset($_FILES['image'])) {
-            $dir = "Public/images/";
-            $image = $productController->ajoutImage($_FILES['image'], $dir, $title);
-        }
-
-        // Mise à jour du mot-clé et de la réponse
-        $productUpdated = $productModel->updateProduct($title, $description, $price, $image, $product_id);
-        var_dump($productUpdated);
-        exit;
-
-        if (!$productUpdated) {
-            throw new Exception("Erreur lors de la modification du produit.");
-        }
-
-        $successMessage = "Le produit '$title' a été modifié avec succès.";
-
-    } catch (Exception $exception) {
-        $errorMessage = "Une erreur est survenue : " . $exception->getMessage();
-    }
-}
-
-// Récupérer les valeurs actuelles
-foreach ($products as $row) {
-    if ($row['id'] == $product_id) {
-        $title = htmlspecialchars($row['title']);
-        $description = htmlspecialchars($row['description']);
-        $price = htmlspecialchars($row['price']);
-        $image = htmlspecialchars($row['image']);
-        break;
-    }
-}
-?>
-
+<?php $title = "Modifier un produit"; ?>
 
 <h2 class="title-add">Modifier un produit</h2>
-
 <div class="form-container">
-<form method="post" action="" enctype="multipart/form-data">
-    <input type="hidden" name="product_id" value="<?= $product_id ?>" />
+    <form method="POST" action="" enctype="multipart/form-data">
+        <input type="hidden" name="product_id" value="<?= htmlspecialchars($product['id']) ?>" />
 
-    <div class="form-group">
-        <label for="title">Modifier le titre :</label>
-        <input type="text" name="title" id="title" value="<?= $title ?>" required />
-    </div>
-    <div class="form-group">
-        <label for="description">Modifier la description :</label>
-        <input type="text" name="description" id="description" value="<?= $description ?>" required />
-    </div>
-    <div class="form-group">
-        <label for="price">Modifier le prix :</label>
-        <input type="text" name="price" id="price" value="<?= $price ?>" required />
-    </div>
-    <div class="form-group">
-            <label for="image">Image : </label>
+        <div class="form-group">
+            <label for="title">Titre :</label>
+            <input type="text" name="title" id="title" value="<?= htmlspecialchars($product['title']) ?>" required />
+        </div>
+        <div class="form-group">
+            <label for="description">Description :</label>
+            <input type="text" name="description" id="description" value="<?= htmlspecialchars($product['description']) ?>" required />
+        </div>
+        <div class="form-group">
+            <label for="price">Prix :</label>
+            <input type="number"
+                   step="0.01"
+                   inputmode="decimal"
+                   name="price"
+                   id="price"
+                   value="<?= htmlspecialchars($product['price']) ?>"
+                   required />
+        </div>
+        <div class="form-group">
+            <label for="image">Image actuelle :</label><br>
+            <?php if (!empty($product['image'])): ?>
+                <img src="<?= URL . 'Public/uploads/' . htmlspecialchars($product['image']) ?>"
+                     alt="Image du produit"
+                     style="max-height: 150px; border: 1px solid #ccc; padding: 5px;object-fit: cover">
+            <?php else: ?>
+                <p class="text-muted">Aucune image enregistrée.</p>
+            <?php endif; ?>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Changer l'image :</label>
             <input type="file" name="image" id="image" accept="image/jpeg,image/png,image/webp" />
-    </div>
-    <button type="submit" class="submit-btn">Modifier</button>
-</form>
+        </div>
+
+        <button type="submit" class="submit-btn">Mettre à jour</button>
+    </form>
 </div>
 
+<?php if (!empty($successMessage)): ?>
+    <div class="message success alert alert-success">
+        <?= htmlspecialchars($successMessage) ?>
+    </div>
+<?php elseif (!empty($errorMessage)): ?>
+    <div class="message error alert alert-danger">
+        <?= htmlspecialchars($errorMessage) ?>
+    </div>
+<?php endif; ?>
 
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll('.btn-close').forEach(button => {
-            button.addEventListener('click', function() {
-                this.closest('.alert').remove();
-            });
-        });
-    });
-</script>
-
-<a class="link-button" href="<?= URL ?>product"><button class="backchat"><i class="fas fa-arrow-left"></i> Retour au chat</button></a>
+<a class="link-button" href="<?= URL ?>product">
+    <button class="backproduct">
+        <i class="fas fa-arrow-left"></i> Retour aux produits
+    </button>
+</a>

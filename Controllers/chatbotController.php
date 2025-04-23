@@ -9,7 +9,7 @@ class ChatbotController {
         require_once __DIR__ . "/../Includes/head.php";
         require_once __DIR__ . "/../Includes/header.php";
 
-        $chatbotModel = new ChatbotModel(); 
+        $chatbotModel = new ChatbotModel();
         $keywordsAndResponses = $chatbotModel->getAllKeywordsAndResponses();
 
 
@@ -19,51 +19,46 @@ class ChatbotController {
     public function deleteKeyword() {
         // Vérifier qu'un mot-clé est passé en POST
         if (isset($_POST['keyword_name'])) {
-            $keyword_name = $_POST['keyword_name'];    
-            $chatbotModel = new ChatbotModel();    
-            $chatbotModel->deleteKeyword($keyword_name);    
+            $keyword_name = $_POST['keyword_name'];
+            $chatbotModel = new ChatbotModel();
+            $chatbotModel->deleteKeyword($keyword_name);
             header("Location: " . URL . "chatbot");
             exit();
         }
     }
-    
+
     public function addChatKeyword() {
-
         require_once __DIR__ . "/../Includes/head.php";
-        require_once(__DIR__ . '/../Includes/header.php');
-        require_once(__DIR__ . '/../Includes/db.php');
-        require_once(__DIR__ . '/../Models/chatbotModel.php');
-        
-        $message = ""; // Stockage du message*
+        require_once __DIR__ . "/../Includes/header.php";
 
-        if (!empty($_POST['keyword_name']) && !empty($_POST['response_name'])) {
-            $keyword_name = strtolower($_POST['keyword_name']);
-            $response_name = strtolower($_POST['response_name']);
+        $message = "";
+        $type = "";
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['keyword_name']) && !empty($_POST['response_name'])) {
+            $keyword_name = strtolower(trim($_POST['keyword_name']));
+            $response_name = strtolower(trim($_POST['response_name']));
 
             $chatbotModel = new ChatbotModel();
 
-            $keywordAdded = $chatbotModel->addKeyword($keyword_name);
-            $responseAdded = $chatbotModel->addResponse($response_name);
+            // Fusion : ajoute ou récupère les IDs existants
+            $result = $chatbotModel->addKeywordAndResponse($keyword_name, $response_name);
 
-            if ($keywordAdded && $responseAdded) {
-                $associationResult = $chatbotModel->associate($keyword_name, $response_name);
-
-                if ($associationResult === "mot-clé déjà associé") {
-                    $message = "<p class='error'>Le mot-clé est déjà associé à cette réponse.</p>";
-                } elseif ($associationResult) {
-                    $message = "<p class='success'>Le mot-clé et la réponse ont bien été ajoutés et associés.</p>";
-                } else {
-                    $message = "<p class='error'>Erreur lors de l'association du mot-clé et de la réponse.</p>";
-                }
+            if ($result['association_created']) {
+                $type = "success";
+                $message = "Mot-clé et réponse associés avec succès.";
+            } elseif ($result['association_exists']) {
+                $type = "info";
+                $message = "Ce mot-clé et cette réponse sont déjà associés.";
             } else {
-                $message = "<p class='error'>Erreur lors de l'ajout du mot-clé ou de la réponse.</p>";
+                $type = "error";
+                $message = "Une erreur est survenue lors de l'ajout.";
             }
-        } else {
-            $message = "<p class='error'>Le nom du mot-clé et la réponse sont requis.</p>";
         }
 
         include __DIR__ . '/../Views/chatbotAdd.php';
     }
+
+
 
     public function updateKeyword() {
         require_once __DIR__ . "/../Includes/head.php";

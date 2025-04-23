@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDEs / éditeurs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs et fichiers temporaires
+*.log
+*.tmp
+*.swp
+
+# Système
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# PHP
+/vendor/
+composer.lock
+
+# Environnement
+.env
+.env.local
+
+# Uploads temporaires
+/public/uploads/
