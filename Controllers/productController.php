@@ -135,9 +135,6 @@ class ProductController {
 
         // Accepte l'ID en GET (pour l'affichage initial) ou POST (après soumission)
         $product_id = $_GET['id'] ?? $_POST['product_id'] ?? null;
-        var_dump($_GET);
-        var_dump($_POST);
-        var_dump($product_id);
         if ($product_id) {
             $product = $productModel->getProductById($product_id);
         }

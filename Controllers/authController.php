@@ -3,6 +3,7 @@
 class AuthController {
 
     public function login() {
+        require_once __DIR__ . "/../Includes/head.php";
         // Vérifie si l'utilisateur est déjà connecté
         if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
             header('Location: ' . URL . 'dashboard');
