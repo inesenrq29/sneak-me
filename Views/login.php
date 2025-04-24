@@ -8,14 +8,14 @@ $captcha = $_SESSION['captcha'];
 
 <form action="" method="post">
 
-<div>
+<div class="red">
     <label for="username">Entrer votre identifiant: </label>
     <input type="text" name="username" id="username" required/>
 </div>
 
-<div>
+<div hidden>
     <label for="lastname">Entrer votre nom: </label>
-    <input type="text" name="honeypot" />
+    <input type="text" name="honeypot"/>
 </div>
 <div>
     <label for="password">Entrer votre mot de passe: </label>
@@ -25,7 +25,7 @@ $captcha = $_SESSION['captcha'];
         <label for="captcha">Saisir le captcha: </label>
         <input type="text" name="captcha" id="captcha" required />
     </div>
-<div>
+<div class="connect">
     <input type="submit" value="Se connecter"/>
 </div>
     <p>Captcha: <?php echo $captcha; ?></p>

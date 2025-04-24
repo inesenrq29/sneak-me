@@ -20,6 +20,11 @@ body {
     max-height: 100vh;
 }
 
+.header h1 {
+    color: white;
+    font-weight: bold;
+}
+
 #chatbot_body{
     margin-top: 8em;
 }

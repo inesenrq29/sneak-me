@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="<?= URL ?>Public/assets/css/chatbotupdate.css">
     <link rel="stylesheet" type="text/css" href="<?= URL ?>Public/assets/css/product.css">
     <link rel="stylesheet" type="text/css" href="<?= URL ?>Public/assets/css/productupdate.css">
+    <link rel="stylesheet" type="text/css" href="<?= URL ?>Public/assets/css/login.css">
 
     <title>Admin - SneakMe</title>
 </head>
