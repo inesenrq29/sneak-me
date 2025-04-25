@@ -99,9 +99,11 @@ input[type="password"]:focus {
     transition: background-color 0.3s ease;
 }
 
+
 .connect input[type="submit"]:hover {
     background-color: #4060ff;
 }
+
 
 .captcha-container {
     background-color: var(--gray-light);

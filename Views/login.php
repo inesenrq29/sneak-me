@@ -20,11 +20,30 @@ $captcha = $_SESSION['captcha'];
             <label for="lastname">Entrer votre nom :</label>
             <input type="text" name="honeypot"/>
         </div>
-
+      
         <div class="form-group">
             <label for="password">Entrer votre mot de passe :</label>
             <input type="password" name="password" id="password" required />
         </div>
+
+<div hidden>
+    <label for="lastname">Entrer votre nom: </label>
+    <input type="text" name="honeypot"/>
+</div>
+<div>
+    <label for="password">Entrer votre mot de passe: </label>
+    <input type="password" name="password" id="password" required />
+</div>
+   <div>
+        <label for="captcha">Saisir le captcha: </label>
+        <input type="text" name="captcha" id="captcha" required />
+    </div>
+<div >
+    <input class="connect" type="submit" value="Se connecter"/>
+</div>
+    <p>Captcha: <?php echo $captcha; ?></p>
+</form>
+
 
         <div class="form-group">
             <label for="captcha">Saisir le captcha :</label>
