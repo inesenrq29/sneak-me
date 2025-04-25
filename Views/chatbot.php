@@ -20,7 +20,7 @@
                     <td><?php echo htmlspecialchars(strtolower($item['response_name'])); ?></td>
                     <td>
                         <div class="action-buttons">
-                            <form method="POST" action="index.php?page=deleteKeyword" style="display: inline;">
+                            <form method="POST" action="index.php?page=deleteKeyword" style="display: inline;" onsubmit="return confirmDelete()">
                                 <input type="hidden" name="keyword_name" value="<?php echo htmlspecialchars($item['keyword_name']); ?>">
                                 <button type="submit" class="action-button delete-button">
                                     <i class="fas fa-trash"></i> Supprimer
@@ -40,4 +40,10 @@
         </tbody>
     </table>
 </body>
+
+<script>
+function confirmDelete() {
+    return window.confirm("Êtes-vous sûr de vouloir supprimer ce mot-clé et sa réponse ?");
+}
+</script>
 </html>
