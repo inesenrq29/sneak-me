@@ -25,8 +25,8 @@ $captcha = $_SESSION['captcha'];
         <label for="captcha">Saisir le captcha: </label>
         <input type="text" name="captcha" id="captcha" required />
     </div>
-<div class="connect">
-    <input type="submit" value="Se connecter"/>
+<div >
+    <input class="connect" type="submit" value="Se connecter"/>
 </div>
     <p>Captcha: <?php echo $captcha; ?></p>
 </form>
