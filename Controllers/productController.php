@@ -173,6 +173,11 @@ class ProductController {
             } else {
                 $errorMessage = "Tous les champs sont requis.";
             }
+
+            //redirection vers la page product
+            header("Location: " . URL . "product");
+            exit();
+
         }
 
         include __DIR__ . '/../Views/productUpdate.php';
