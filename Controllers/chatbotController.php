@@ -58,11 +58,12 @@ class ChatbotController {
         include __DIR__ . '/../Views/chatbotAdd.php';
     }
 
-
-
     public function updateKeyword() {
         require_once __DIR__ . "/../Includes/head.php";
         require_once(__DIR__ . '/../Includes/header.php');
+
+        $updateSuccess = false;
+        $errorMessage = null;
 
         if (!empty($_POST['keyword_name']) && !empty($_POST['response_name']) &&
             !empty($_POST['keyword_id']) && !empty($_POST['response_id'])) {
@@ -75,17 +76,21 @@ class ChatbotController {
 
             $chatbotModel = new ChatbotModel();
 
-            $keywordUpdated = $chatbotModel->updateKeyword($keyword_name, $keyword_id);
-            $responseUpdated = $chatbotModel->updateResponse($response_name, $response_id);
+            try {
+                $keywordUpdated = $chatbotModel->updateKeyword($keyword_name, $keyword_id);
+                $responseUpdated = $chatbotModel->updateResponse($response_name, $response_id);
+
+                if ($keywordUpdated && $responseUpdated) {
+                    $updateSuccess = true;
+                }
+            } catch (Exception $e) {
+                $errorMessage = $e->getMessage();
+            }
         }
 
         include __DIR__ . '/../Views/chatbotUpdate.php';
     }
-
-
-
 }
-
 
 ?>
 

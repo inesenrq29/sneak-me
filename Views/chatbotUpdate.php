@@ -45,20 +45,38 @@ foreach ($keywordsAndResponses as $row) {
 <h2 class="title-add">Modifier un mot-clé et sa réponse</h2>
 
 <div class="form-container">
-<form method="post" action="">
-    <input type="hidden" name="keyword_id" value="<?= $keyword_id ?>" />
-    <input type="hidden" name="response_id" value="<?= $response_id ?>" />
+    <form method="post" action="">
+        <input type="hidden" name="keyword_id" value="<?= $keyword_id ?>" />
+        <input type="hidden" name="response_id" value="<?= $response_id ?>" />
 
-    <div class="form-group">
-        <label for="keyword_name">Modifier le mot-clé :</label>
-        <input type="text" name="keyword_name" id="keyword_name" value="<?= $keyword_name ?>" required />
+        <div class="form-group">
+            <label for="keyword_name">Modifier le mot-clé :</label>
+            <input type="text" name="keyword_name" id="keyword_name" value="<?= $keyword_name ?>" required />
+        </div>
+        <div class="form-group">
+            <label for="response_name">Modifier la réponse associée :</label>
+            <input type="text" name="response_name" id="response_name" value="<?= $response_name ?>" required />
+        </div>
+        <button type="submit" class="submit-btn">Modifier</button>
+    </form>
+</div>
+
+<!-- Modale de succès -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Modification réussie</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                Le mot-clé et la réponse ont été modifiés avec succès.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="window.location.href='<?= URL ?>chatbot/keywords'">OK</button>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="response_name">Modifier la réponse associée :</label>
-        <input type="text" name="response_name" id="response_name" value="<?= $response_name ?>" required />
-    </div>
-    <button type="submit" class="submit-btn">Modifier</button>
-</form>
 </div>
 
 <?php if (isset($updateSuccess) && $updateSuccess): ?>
@@ -79,11 +97,18 @@ foreach ($keywordsAndResponses as $row) {
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+        // Gestion des alertes
         document.querySelectorAll('.btn-close').forEach(button => {
             button.addEventListener('click', function() {
                 this.closest('.alert').remove();
             });
         });
+
+        // Afficher la modale de succès si la mise à jour est réussie
+        <?php if (isset($updateSuccess) && $updateSuccess): ?>
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+        <?php endif; ?>
     });
 </script>
 
