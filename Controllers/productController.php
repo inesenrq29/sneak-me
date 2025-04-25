@@ -18,7 +18,9 @@ class ProductController {
         }
 
         $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-        $target_file = $dir . $nom . "_" . basename($file['name']);
+
+        $uuid = bin2hex(random_bytes(16));
+        $target_file = $dir . $nom . "_" . basename($file['name']) . $uuid . '.' . $extension;
 
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mime = finfo_file($finfo, $file['tmp_name']);
@@ -49,7 +51,7 @@ class ProductController {
             throw new RuntimeException("L'ajout de l'image a échoué");
         }
 
-        return $nom . "_" . basename($file['name']);
+        return basename($target_file);
     }
 
 
