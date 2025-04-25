@@ -74,9 +74,11 @@ class ProductController {
             // Récupérer l'image avant la suppression
             $product = $productModel->getProductById($product_id);
             if ($product && !empty($product['image'])) {
-                $targetDir = "Public/images/";
-                if (file_exists($targetDir . $product['image'])) {
-                    unlink($targetDir . $product['image']);
+                $uploadDir = "Public/uploads/";
+                $imagePath = $uploadDir . $product["image"];
+
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
                 }
             }
             
