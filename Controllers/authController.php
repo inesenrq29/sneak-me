@@ -31,7 +31,7 @@ class AuthController {
 
 
                 // Vérification des informations de connexion
-                if ($username === 'admin' && $password === '$2y$10$UOC70iO80WD/i3J9Q2a0me51OTxcRPufkLvaOQ0YMcaOhUHmPf1WC') {
+                if ($username === 'admin' && $password === 'admin') {
                     $_SESSION['admin'] = true; // L'authentification est réussie
                     header('Location: ' . URL . 'dashboard');
                     exit();
