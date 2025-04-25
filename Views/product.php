@@ -32,7 +32,7 @@
                     </td>
                     <td>
                         <div class="action-buttons">
-                            <form method="POST" action="index.php?page=deleteProduct" style="display: inline;">
+                            <form method="POST" action="index.php?page=deleteProduct" style="display: inline;" onsubmit="return confirmDeleteProduct()">
                                 <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($item['id']); ?>">
                                 <button type="submit" class="action-button delete-button">
                                     <i class="fas fa-trash"></i> Supprimer
@@ -53,4 +53,10 @@
         </tbody>
     </table>
 </body>
+
+<script>
+function confirmDeleteProduct() {
+    return window.confirm("Êtes-vous sûr de vouloir supprimer ce produit ?");
+}
+</script>
 </html>
