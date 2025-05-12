@@ -89,6 +89,16 @@ tbody tr:hover {
 .action-buttons {
     display: flex;
     gap: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+}
+
+.action-buttons form {
+    margin: 0;
+    padding: 0;
+    flex: 0 1 auto;
 }
 
 .action-button {
@@ -98,6 +108,12 @@ tbody tr:hover {
     cursor: pointer;
     transition: background-color 0.3s ease;
     color: var(--white);
+    min-width: 80px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    white-space: nowrap;
 }
 
 .delete-button {
@@ -133,10 +149,14 @@ tbody tr:hover {
     }
 
     .action-buttons {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: center;
+        gap: 8px;
     }
 
     .action-button {
-        width: 100%;
+        width: auto;
+        min-width: 70px;
+        padding: 6px 12px;
     }
 } 
