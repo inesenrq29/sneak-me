@@ -54,7 +54,7 @@
 <?php endif; ?>
 
 <a class="link-button" href="<?= URL ?>product">
-    <button class="backproduct">
+    <button class="backchat">
         <i class="fas fa-arrow-left"></i> Retour aux produits
     </button>
 </a>
