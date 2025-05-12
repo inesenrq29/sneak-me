@@ -1,9 +1,13 @@
 <?php
 
+require_once __DIR__ . "/../Models/authModel.php";
+
 class AuthController {
 
     public function login() {
         require_once __DIR__ . "/../Includes/head.php";
+        
+
         // Vérifie si l'utilisateur est déjà connecté
         if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
             header('Location: ' . URL . 'dashboard');
@@ -19,19 +23,18 @@ class AuthController {
                 header('HTTP/1.1 403 Forbidden');
                 exit('Accès interdit');
                }                
-            // Récupérer les données du formulaire
-            $username = $_POST['username'];
-            $password = $_POST['password'];
 
             // On vérifie le captcha
             if ($_POST['captcha'] == $_SESSION['captcha']) {
                 // Récupération des données du formulaire
-                $username = $_POST['username'];
-                $password = $_POST['password'];
+                $username = $_POST['username'] ?? '';
+                $password = $_POST['password'] ?? '';
 
+                $authModel = new AuthModel();
+                $user = $authModel->getUserByUsername($username);
 
                 // Vérification des informations de connexion
-                if ($username === 'admin' && $password === 'admin123') {
+                if ($user && password_verify($password, $user['password'])) {
                     $_SESSION['admin'] = true; // L'authentification est réussie
                     header('Location: ' . URL . 'dashboard');
                     exit();
