@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 26 mars 2025 à 13:52
+-- Généré le : jeu. 15 mai 2025 à 11:41
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -24,30 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `category`
---
-
-DROP TABLE IF EXISTS `category`;
-CREATE TABLE IF NOT EXISTS `category` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Déchargement des données de la table `category`
---
-
-INSERT INTO `category` (`id`, `name`) VALUES
-(1, 'Basketball'),
-(3, 'Lifestyle'),
-(2, 'Running'),
-(4, 'Sneakers');
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `keyword`
 --
 
@@ -57,24 +33,27 @@ CREATE TABLE IF NOT EXISTS `keyword` (
   `keyword_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`keyword_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `keyword`
 --
 
 INSERT INTO `keyword` (`id`, `keyword_name`) VALUES
-(10, 'catalogue'),
-(11, 'commander'),
-(16, 'connection'),
-(17, 'connexion'),
-(12, 'déco'),
-(15, 'déconnection'),
-(13, 'déconnexion'),
-(1, 'inscription'),
-(14, 'logout'),
-(9, 'produit'),
-(4, 'sav');
+(77, 'article'),
+(78, 'articles'),
+(75, 'catalogue'),
+(76, 'catalogues'),
+(68, 'Inscription'),
+(79, 'oui'),
+(81, 'panne'),
+(84, 'problème'),
+(72, 'produit'),
+(74, 'produits'),
+(85, 'remboursement'),
+(83, 'retour'),
+(64, 'sav'),
+(80, 'soucis');
 
 -- --------------------------------------------------------
 
@@ -87,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `keyword_response` (
   `keyword_id` int NOT NULL,
   `response_id` int NOT NULL,
   PRIMARY KEY (`keyword_id`,`response_id`),
+  UNIQUE KEY `unique_keyword_id` (`keyword_id`),
   KEY `fk_response` (`response_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -95,17 +75,27 @@ CREATE TABLE IF NOT EXISTS `keyword_response` (
 --
 
 INSERT INTO `keyword_response` (`keyword_id`, `response_id`) VALUES
-(1, 1),
-(16, 2),
-(17, 2),
-(4, 4),
-(9, 7),
-(10, 7),
-(11, 7),
-(12, 8),
-(13, 8),
-(14, 8),
-(15, 8);
+(63, 81),
+(64, 69),
+(65, 78),
+(66, 70),
+(67, 82),
+(68, 83),
+(69, 84),
+(70, 85),
+(71, 86),
+(72, 87),
+(74, 87),
+(75, 87),
+(76, 87),
+(77, 87),
+(78, 87),
+(80, 90),
+(81, 90),
+(82, 90),
+(83, 90),
+(84, 90),
+(85, 90);
 
 -- --------------------------------------------------------
 
@@ -120,19 +110,16 @@ CREATE TABLE IF NOT EXISTS `product` (
   `description` text NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `category_id` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_product_category` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `product`
 --
 
-INSERT INTO `product` (`id`, `title`, `description`, `price`, `image`, `category_id`) VALUES
-(1, 'Nike Air Force 1', 'Une basket emblématique de Nike', 99.99, 'air-force-1.jpg', 1),
-(2, 'Adidas UltraBoost', 'Une chaussure de running confortable', 180.00, 'ultraboost.jpg', 2),
-(3, 'Jordan 1 Retro', 'Un classique du basketball', 150.00, 'jordan-1.jpg', 1);
+INSERT INTO `product` (`id`, `title`, `description`, `price`, `image`) VALUES
+(1, 'FORUM LOW CL UNISEX - Baskets basses', 'C’est l’un de nos articles les plus populaires ce mois-ci.', 120.00, 'FORUM LOW CL UNISEX - Baskets basses_adidas.png'),
+(8, 'SAMBA OG - Baskets basses', 'Pour celles qui créent les tendances plutôt que de les suivre, la chaussure adidas Samba OG est un must-have. Conçue à l\'origine pour le football en salle, cette chaussure a depuis transcendé ses débuts sportifs. La tige en cuir premium et les empiècements en nubuck s\'associent pour former une silhouette iconique parfaite pour imposer ton style. Les détails dorés et les 3 bandes signatures sur les côtés rendent discrètement hommage à l\'héritage adidas. Un grand classique revisité pour les créatrices de tendances.', 125.00, 'SAMBA OG - Baskets basses_samba.jpg');
 
 -- --------------------------------------------------------
 
@@ -145,21 +132,33 @@ CREATE TABLE IF NOT EXISTS `response` (
   `id` int NOT NULL AUTO_INCREMENT,
   `response_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `response`
 --
 
 INSERT INTO `response` (`id`, `response_name`) VALUES
-(1, 'Merci de vous êtes inscrit, bienvenue !'),
+(1, 'Merci d\'être inscrit !'),
 (2, 'Bon retour parmi nous !'),
 (3, 'Vous avez été déconnecté avec succès.'),
 (4, 'Pour joindre notre service après vente vous pouvez contacter le 0865342154 munit de votre numéro de commande'),
-(5, 'test'),
 (6, 'Vous souhaiter voir nos produits en stock actuellement ? \nLes voici : '),
 (7, 'Vous souhaiter voir nos produits en stock actuellement ? Les voici :'),
-(8, 'Vous êtes maintenant déconnecté, à bientôt !');
+(8, 'Vous êtes maintenant déconnecté, à bientôt !'),
+(52, 'bonjour'),
+(67, 'sav ?'),
+(68, 'Pour joindre notre service après vente, vous pouvez contacter le 0865342154 munit de votre numéro de commande'),
+(69, 'Vous souhaitez voir nos produits en stock ? les voici :'),
+(70, 'réponse'),
+(71, 'Connexion réussie'),
+(81, 'Vous êtes inscrit'),
+(83, 'Vous êtes inscrit !'),
+(85, 'reponse en minuscule'),
+(86, 'masjucule'),
+(87, 'Souhaitez-vous voir notre catalogue ?'),
+(89, 'réponse à oui'),
+(90, 'Vous souhaitez contacter le service après vente ?');
 
 -- --------------------------------------------------------
 
@@ -183,23 +182,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 (1, 'admin', '$2y$10$UOC70iO80WD/i3J9Q2a0me51OTxcRPufkLvaOQ0YMcaOhUHmPf1WC', 'admin');
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `keyword_response`
---
-ALTER TABLE `keyword_response`
-  ADD CONSTRAINT `fk_keyword` FOREIGN KEY (`keyword_id`) REFERENCES `keyword` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_response` FOREIGN KEY (`response_id`) REFERENCES `response` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `product`
---
-ALTER TABLE `product`
-  ADD CONSTRAINT `fk_product_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
