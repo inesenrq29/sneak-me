@@ -7,8 +7,8 @@
         <div class="dashboard-cards">
             <div class="card">
                 <i class="fas fa-users"></i>
-                <h3>Utilisateurs non admin</h3>
-                <p><?= htmlspecialchars($nonAdminCount); ?></p>
+                <h3>Produits</h3>
+                <p><?= htmlspecialchars($productCount); ?></p>
             </div>
             <div class="card">
                 <i class="fas fa-tags"></i>

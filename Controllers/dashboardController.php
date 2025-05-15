@@ -9,7 +9,7 @@ class DashboardController {
         require_once __DIR__ . "/../Includes/header.php";
 
         $dashboardModel = new DashboardModel();
-        $nonAdminCount = $dashboardModel->countNonAdminUsers();
+        $productCount = $dashboardModel->countProduct();
         $keywordsCount = $dashboardModel->countKeyword();
         $responsesCount = $dashboardModel->countResponse();
 
