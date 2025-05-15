@@ -3,10 +3,10 @@ require_once __DIR__ . '/../Includes/db.php';
 
 class DashboardModel {
 
-  public function countNonAdminUsers() {
+  public function countProduct() {
     $pdo = getConnection();
     
-    $query = "SELECT COUNT(*) FROM users WHERE role != 'admin'";
+    $query = "SELECT COUNT(*) FROM product";
     $stmt = $pdo->query($query);
     
     return $stmt->fetchColumn();
